@@ -9,7 +9,7 @@
 add_library(apcompdiy INTERFACE)
 target_include_directories(apcompdiy INTERFACE
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:${VTKh_INSTALL_INCLUDE_DIR}/apcomp/thirdparty_builtin>  # <prefix>/apcomp/thirdparty_builtin/
+  $<INSTALL_INTERFACE:${APComp_INSTALL_INCLUDE_DIR}/apcomp/thirdparty_builtin>  # <prefix>/apcomp/thirdparty_builtin/
   )
 
 
