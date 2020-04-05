@@ -1,9 +1,9 @@
 #include <apcomp/ImageCompositor.hpp>
 #include <apcomp/PayloadImageCompositor.hpp>
-#include <apcomp/MPICollect.hpp>
-#include <apcomp/RadixKCompositor.hpp>
-#include <apcomp/apcomp_diy_collect.hpp>
-#include <apcomp/apcomp_diy_utils.hpp>
+#include <apcomp/internal/MPICollect.hpp>
+#include <apcomp/internal/RadixKCompositor.hpp>
+#include <apcomp/internal/apcomp_diy_collect.hpp>
+#include <apcomp/internal/apcomp_diy_utils.hpp>
 
 #include <diy/master.hpp>
 #include <diy/mpi.hpp>

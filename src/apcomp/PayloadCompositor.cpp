@@ -7,7 +7,7 @@
 #ifdef APCOMP_PARALLEL
 #include <mpi.h>
 #include <apcomp/apcomp.hpp>
-#include <apcomp/RadixKCompositor.hpp>
+#include <apcomp/internal/RadixKCompositor.hpp>
 #include <diy/mpi.hpp>
 #endif
 

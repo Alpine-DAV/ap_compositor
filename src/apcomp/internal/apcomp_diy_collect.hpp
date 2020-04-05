@@ -6,7 +6,7 @@
 #include <diy/reduce.hpp>
 #include <diy/reduce-operations.hpp>
 #include <apcomp/Image.hpp>
-#include <apcomp/apcomp_diy_image_block.hpp>
+#include <apcomp/internal/apcomp_diy_image_block.hpp>
 
 namespace apcomp
 {

@@ -39,18 +39,18 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-#ifndef rover_blocks_h
-#define rover_blocks_h
+#ifndef APCOMP_IMAGE_BLOCKS_h
+#define APCOMP_IMAGE_BLOCKS_h
 
 #include <diy/master.hpp>
 
-#include "AbsorptionPartial.hpp"
-#include "EmissionPartial.hpp"
-#include "VolumePartial.hpp"
+#include <apcomp/AbsorptionPartial.hpp>
+#include <apcomp/EmissionPartial.hpp>
+#include <apcomp/VolumePartial.hpp>
 
 namespace apcomp {
 
-//--------------------------------------Volume Block Structure-----------------------------------
+//---------------Volume Block Structure---------------------
 template<typename FloatType>
 struct VolumeBlock
 {

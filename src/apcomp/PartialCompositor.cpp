@@ -46,8 +46,8 @@
 
 #ifdef APCOMP_PARALLEL
 #include <mpi.h>
-#include "apcomp_diy_partial_redistribute.hpp"
-#include "apcomp_diy_partial_collect.hpp"
+#include <apcomp/internal/apcomp_diy_partial_redistribute.hpp>
+#include <apcomp/internal/apcomp_diy_partial_collect.hpp>
 #endif
 
 namespace apcomp {

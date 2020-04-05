@@ -39,15 +39,15 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-#ifndef rover_compositor_h
-#define rover_compositor_h
+#ifndef APCOMP_PARTIAL_COMPOSITOR_h
+#define APCOMP_PARTIAL_COMPOSITOR_h
 
 #include <vector>
 #include <iostream>
 #include <apcomp/apcomp_exports.h>
-#include "AbsorptionPartial.hpp"
-#include "EmissionPartial.hpp"
-#include "VolumePartial.hpp"
+#include <apcomp/AbsorptionPartial.hpp>
+#include <apcomp/EmissionPartial.hpp>
+#include <apcomp/VolumePartial.hpp>
 
 
 namespace apcomp {

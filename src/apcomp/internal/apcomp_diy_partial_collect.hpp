@@ -39,12 +39,12 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-#ifndef rover_compositing_collect_h
-#define rover_compositing_collect_h
+#ifndef APCOMP_DIY_COLLECT_h
+#define APCOMP_DIY_COLLECT_h
 
-#include "AbsorptionPartial.hpp"
-#include "EmissionPartial.hpp"
-#include "VolumePartial.hpp"
+#include <apcomp/AbsorptionPartial.hpp>
+#include <apcomp/EmissionPartial.hpp>
+#include <apcomp/VolumePartial.hpp>
 #include <diy/assigner.hpp>
 #include <diy/decomposition.hpp>
 #include <diy/master.hpp>

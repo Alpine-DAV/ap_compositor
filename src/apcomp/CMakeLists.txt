@@ -65,20 +65,21 @@ endif()
 # Handle parallel library
 #------------------------------------------------------------------------------
 set(apcomp_compositing_mpi_headers
-  DirectSendCompositor.hpp
-  MPICollect.hpp
-  RadixKCompositor.hpp
-  apcomp_diy_collect.hpp
-  apcomp_diy_image_block.hpp
-  apcomp_diy_utils.hpp
   PartialCompositor.hpp
   PayloadCompositor.hpp
   PayloadImage.hpp
+
+  internal/DirectSendCompositor.hpp
+  internal/MPICollect.hpp
+  internal/RadixKCompositor.hpp
+  internal/apcomp_diy_collect.hpp
+  internal/apcomp_diy_image_block.hpp
+  internal/apcomp_diy_utils.hpp
   )
 
 set(apcomp_compositing_mpi_sources
-  DirectSendCompositor.cpp
-  RadixKCompositor.cpp
+  internal/DirectSendCompositor.cpp
+  internal/RadixKCompositor.cpp
   PartialCompositor.cpp
   PayloadCompositor.cpp
   )

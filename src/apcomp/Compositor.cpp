@@ -6,10 +6,10 @@
 
 #ifdef APCOMP_PARALLEL
 #include <mpi.h>
-#include <apcomp/apcomp.hpp>
-#include <apcomp/DirectSendCompositor.hpp>
-#include <apcomp/RadixKCompositor.hpp>
 #include <diy/mpi.hpp>
+#include <apcomp/apcomp.hpp>
+#include <apcomp/internal/DirectSendCompositor.hpp>
+#include <apcomp/internal/RadixKCompositor.hpp>
 #endif
 
 namespace apcomp
