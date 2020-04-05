@@ -7,11 +7,14 @@
 namespace apcomp
 {
 
-  APCOMP_API bool IsMPIEnabled();
-  APCOMP_API int  GetMPIRank();
-  APCOMP_API int  GetMPISize();
+  APCOMP_API bool mpi_enabled();
+  APCOMP_API bool openmp_enabled();
+  APCOMP_API int  mpi_rank();
+  APCOMP_API int  mpi_size();
 
-  APCOMP_API void SetMPICommHandle(int mpi_comm_id);
-  APCOMP_API int  GetMPICommHandle();
+  APCOMP_API void mpi_comm(int mpi_comm_id);
+  APCOMP_API int  mpi_comm();
+
+  APCOMP_API std::string about();
 }
 #endif

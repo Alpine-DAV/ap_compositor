@@ -20,51 +20,48 @@ static int g_mpi_comm_id = -1;
 
 //---------------------------------------------------------------------------//
 void
-CheckCommHandle()
+check_comm()
 {
   if(g_mpi_comm_id == -1)
   {
     std::stringstream msg;
-    msg<<"VTK-h internal error. There is no valid MPI comm available. ";
-    msg<<"It is likely that VTKH.SetMPICommHandle(int) was not called.";
+    msg<<"APComp internal error. There is no valid MPI comm available. ";
+    msg<<"It is likely that apcomp::mpi_comm(int) was not called.";
     throw Error(msg.str());
   }
 }
 
 //---------------------------------------------------------------------------//
 void
-SetMPICommHandle(int mpi_comm_id)
+mpi_comm(int mpi_comm_id)
 {
   g_mpi_comm_id = mpi_comm_id;
-#ifdef VTKH_ENABLE_LOGGING
-  DataLogger::GetInstance()->SetRank(GetMPIRank());
-#endif
 }
 
 //---------------------------------------------------------------------------//
 int
-GetMPICommHandle()
+mpi_comm()
 {
-  CheckCommHandle();
+  check_comm();
   return g_mpi_comm_id;
 }
 
 //---------------------------------------------------------------------------//
 int
-GetMPIRank()
+mpi_rank()
 {
   int rank;
-  MPI_Comm comm = MPI_Comm_f2c(GetMPICommHandle());
+  MPI_Comm comm = MPI_Comm_f2c(mpi_comm());
   MPI_Comm_rank(comm, &rank);
   return rank;
 }
 
 //---------------------------------------------------------------------------//
 int
-GetMPISize()
+mpi_size()
 {
   int size;
-  MPI_Comm comm = MPI_Comm_f2c(GetMPICommHandle());
+  MPI_Comm comm = MPI_Comm_f2c(mpi_comm());
   MPI_Comm_size(comm, &size);
   return size;
 }
@@ -77,7 +74,7 @@ GetMPISize()
 
 //---------------------------------------------------------------------------//
 void
-CheckCommHandle()
+check_comm()
 {
   std::stringstream msg;
   msg<<"APComp internal error. Trying to access MPI comm in non-mpi lib.";
@@ -87,7 +84,7 @@ CheckCommHandle()
 
 //---------------------------------------------------------------------------//
 void
-SetMPICommHandle(int mpi_comm_id)
+mpi_comm(int mpi_comm_id)
 {
   std::stringstream msg;
   msg<<"APComp internal error. Trying to access MPI comm in non-mpi lib.";
@@ -97,7 +94,7 @@ SetMPICommHandle(int mpi_comm_id)
 
 //---------------------------------------------------------------------------//
 int
-GetMPICommHandle()
+mpi_comm()
 {
   std::stringstream msg;
   msg<<"APComp internal error. Trying to access MPI comm in non-mpi lib.";
@@ -108,14 +105,14 @@ GetMPICommHandle()
 
 //---------------------------------------------------------------------------//
 int
-GetMPIRank()
+mpi_rank()
 {
   return 0;
 }
 
 //---------------------------------------------------------------------------//
 int
-GetMPISize()
+mpi_size()
 {
   return 1;
 }
@@ -125,7 +122,7 @@ GetMPISize()
 
 //---------------------------------------------------------------------------//
 bool
-IsMPIEnabled()
+mpi_enabled()
 {
 #ifdef APCOMP_PARALLEL
   return true;
@@ -134,5 +131,37 @@ IsMPIEnabled()
 #endif
 }
 
-
+bool
+openmp_enabled()
+{
+#ifdef APCOMP_USE_OPENMP
+  return true;
+#else
+  return false;
+#endif
 }
+
+std::string about()
+{
+  std::string res;
+  res = "APComp \n";
+  if(mpi_enabled())
+  {
+    res += "mpi enabled\n";
+  }
+  else
+  {
+    res += "mpi disabled\n";
+  }
+  if(openmp_enabled())
+  {
+    res += "openmp enabled\n";
+  }
+  else
+  {
+    res += "openmp disabled\n";
+  }
+  return res;
+}
+
+} // namespace apcomp

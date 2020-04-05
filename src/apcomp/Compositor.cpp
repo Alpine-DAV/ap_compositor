@@ -203,7 +203,7 @@ Compositor::CompositeZBufferSurface()
   // they were added to the compositor
 #ifdef APCOMP_PARALLEL
   apcompdiy::mpi::communicator diy_comm;
-  diy_comm = apcompdiy::mpi::communicator(MPI_Comm_f2c(GetMPICommHandle()));
+  diy_comm = apcompdiy::mpi::communicator(MPI_Comm_f2c(mpi_comm()));
 
   assert(m_images.size() == 1);
   RadixKCompositor compositor;
@@ -224,7 +224,7 @@ Compositor::CompositeVisOrder()
 
 #ifdef APCOMP_PARALLEL
   apcompdiy::mpi::communicator diy_comm;
-  diy_comm = apcompdiy::mpi::communicator(MPI_Comm_f2c(GetMPICommHandle()));
+  diy_comm = apcompdiy::mpi::communicator(MPI_Comm_f2c(mpi_comm()));
 
   assert(m_images.size() != 0);
   DirectSendCompositor compositor;

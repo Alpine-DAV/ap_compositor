@@ -51,6 +51,7 @@ include(APCompBuildType)
 option(BUILD_SHARED_LIBS  "Build shared libraries"    ON)
 option(ENABLE_TESTS       "Build tests"               ON)
 option(ENABLE_MPI         "Build MPI Support"         ON)
+option(ENABLE_SERIAL      "Build Non-MPI Support"     ON)
 
 if(NOT ENABLE_SERIAL AND NOT ENABLE_MPI)
   message(FATAL_ERROR "No libraries are built. "
@@ -110,9 +111,9 @@ add_subdirectory(thirdparty_builtin)
 
 add_subdirectory(apcomp)
 
-#if(ENABLE_TESTS)
-#  add_subdirectory(tests)
-#endif()
+if(ENABLE_TESTS)
+  add_subdirectory(tests)
+endif()
 
 ################################
 # Add examples
