@@ -9,6 +9,14 @@
 namespace apcomp
 {
 
+struct CompositeOrderSort
+{
+  inline bool operator()(const Image &lhs, const Image &rhs) const
+  {
+    return lhs.m_composite_order < rhs.m_composite_order;
+  }
+};
+
 class APCOMP_API ImageCompositor
 {
 public:

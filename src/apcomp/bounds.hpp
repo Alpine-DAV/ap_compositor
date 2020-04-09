@@ -8,10 +8,10 @@ namespace apcomp
 
 struct APCOMP_API Bounds
 {
-  int m_min_x;
-  int m_max_x;
-  int m_min_y;
-  int m_max_y;
+  int m_min_x = 0;
+  int m_max_x = 0;
+  int m_min_y = 0;
+  int m_max_y = 0;
 };
 
 } //namespace  apcomp

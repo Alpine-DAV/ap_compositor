@@ -52,7 +52,7 @@
 #include "t_test_utils.h"
 
 #include <apcomp/apcomp.hpp>
-#include <apcomp/Compositor.hpp>
+#include <apcomp/compositor.hpp>
 
 #include <iostream>
 #include <mpi.h>
