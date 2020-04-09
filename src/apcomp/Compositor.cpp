@@ -1,5 +1,5 @@
 #include "Compositor.hpp"
-#include <apcomp/ImageCompositor.hpp>
+#include <apcomp/internal/ImageCompositor.hpp>
 
 #include <assert.h>
 #include <algorithm>

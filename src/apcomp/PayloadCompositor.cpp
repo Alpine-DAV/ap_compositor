@@ -1,5 +1,5 @@
 #include "PayloadCompositor.hpp"
-#include <apcomp/PayloadImageCompositor.hpp>
+#include <apcomp/internal/PayloadImageCompositor.hpp>
 
 #include <assert.h>
 #include <algorithm>

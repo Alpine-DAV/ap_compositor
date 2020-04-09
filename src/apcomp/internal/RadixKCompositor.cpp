@@ -1,5 +1,5 @@
-#include <apcomp/ImageCompositor.hpp>
-#include <apcomp/PayloadImageCompositor.hpp>
+#include <apcomp/internal/ImageCompositor.hpp>
+#include <apcomp/internal/PayloadImageCompositor.hpp>
 #include <apcomp/internal/MPICollect.hpp>
 #include <apcomp/internal/RadixKCompositor.hpp>
 #include <apcomp/internal/apcomp_diy_collect.hpp>

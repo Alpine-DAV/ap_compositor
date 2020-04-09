@@ -7,7 +7,6 @@ set(apcomp_headers
   Bounds.hpp
   Error.hpp
   Image.hpp
-  ImageCompositor.hpp
   Compositor.hpp
   PartialCompositor.hpp
   PayloadCompositor.hpp
