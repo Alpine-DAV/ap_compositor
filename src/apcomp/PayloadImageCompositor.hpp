@@ -22,10 +22,10 @@ void ZBufferComposite(apcomp::PayloadImage &front, const apcomp::PayloadImage &i
     std::cout<<"very bad\n";
   }
   assert(front.m_depths.size() == front.m_payloads.size() / front.m_payload_bytes);
-  assert(front.m_bounds.X.Min == image.m_bounds.X.Min);
-  assert(front.m_bounds.Y.Min == image.m_bounds.Y.Min);
-  assert(front.m_bounds.X.Max == image.m_bounds.X.Max);
-  assert(front.m_bounds.Y.Max == image.m_bounds.Y.Max);
+  assert(front.m_bounds.m_min_x == image.m_bounds.m_min_x);
+  assert(front.m_bounds.m_min_y == image.m_bounds.m_min_y);
+  assert(front.m_bounds.m_max_x == image.m_bounds.m_max_x);
+  assert(front.m_bounds.m_max_y == image.m_bounds.m_max_y);
 
   const int size = static_cast<int>(front.m_depths.size());
   const bool nan_check = image.m_default_value != image.m_default_value;

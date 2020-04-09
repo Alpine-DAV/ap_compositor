@@ -1,6 +1,7 @@
 // See License.txt
 
 #include "Image.hpp"
+#include <apcomp/Error.hpp>
 #include <apcomp/utils/PNGEncoder.hpp>
 
 namespace apcomp
@@ -8,11 +9,17 @@ namespace apcomp
 
 void Image::Save(std::string name)
 {
-    PNGEncoder encoder;
-    encoder.Encode(&m_pixels[0],
-        m_bounds.m_max_x - m_bounds.m_min_x + 1,
-        m_bounds.m_max_y - m_bounds.m_min_y + 1);
-    encoder.Save(name);
+  int width = m_bounds.m_max_x - m_bounds.m_min_x + 1;
+  int height = m_bounds.m_max_y - m_bounds.m_min_y + 1;
+
+  if(width * height <= 0)
+  {
+    throw Error("Image: cannot save empty image");
+  }
+
+  PNGEncoder encoder;
+  encoder.Encode(&m_pixels[0], width, height);
+  encoder.Save(name +  ".png");
 }
 
 } // namespace apcomp

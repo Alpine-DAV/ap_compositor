@@ -15,10 +15,10 @@ public:
   void Blend(apcomp::Image &front, apcomp::Image &back)
   {
 
-    assert(front.m_bounds.X.Min == back.m_bounds.X.Min);
-    assert(front.m_bounds.Y.Min == back.m_bounds.Y.Min);
-    assert(front.m_bounds.X.Max == back.m_bounds.X.Max);
-    assert(front.m_bounds.Y.Max == back.m_bounds.Y.Max);
+    assert(front.m_bounds.m_min_x == back.m_bounds.m_min_x);
+    assert(front.m_bounds.m_min_y == back.m_bounds.m_min_y);
+    assert(front.m_bounds.m_max_x == back.m_bounds.m_max_x);
+    assert(front.m_bounds.m_max_y == back.m_bounds.m_max_y);
     const int size = static_cast<int>(front.m_pixels.size() / 4);
 
 #ifdef APCOMP_USE_OPENMP
@@ -49,10 +49,10 @@ public:
 void ZBufferComposite(apcomp::Image &front, const apcomp::Image &image)
 {
   assert(front.m_depths.size() == front.m_pixels.size() / 4);
-  assert(front.m_bounds.X.Min == image.m_bounds.X.Min);
-  assert(front.m_bounds.Y.Min == image.m_bounds.Y.Min);
-  assert(front.m_bounds.X.Max == image.m_bounds.X.Max);
-  assert(front.m_bounds.Y.Max == image.m_bounds.Y.Max);
+  assert(front.m_bounds.m_min_x == image.m_bounds.m_min_x);
+  assert(front.m_bounds.m_min_y == image.m_bounds.m_min_y);
+  assert(front.m_bounds.m_max_x == image.m_bounds.m_max_x);
+  assert(front.m_bounds.m_max_y == image.m_bounds.m_max_y);
 
   const int size = static_cast<int>(front.m_depths.size());
 
