@@ -2,7 +2,7 @@
 #define APCOMP_DIY_RADIX_K_HPP
 
 #include <apcomp/image.hpp>
-#include <apcomp/payload_image.hpp>
+#include <apcomp/scalar_image.hpp>
 #include <diy/mpi.hpp>
 #include <sstream>
 
@@ -15,7 +15,7 @@ public:
   RadixKCompositor();
   ~RadixKCompositor();
   void CompositeSurface(apcompdiy::mpi::communicator &diy_comm, Image &image);
-  void CompositeSurface(apcompdiy::mpi::communicator &diy_comm, PayloadImage &image);
+  void CompositeSurface(apcompdiy::mpi::communicator &diy_comm, ScalarImage &image);
 
   template<typename ImageType>
   void CompositeImpl(apcompdiy::mpi::communicator &diy_comm, ImageType &image);

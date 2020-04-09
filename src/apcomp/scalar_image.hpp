@@ -1,5 +1,5 @@
-#ifndef APCOMP_PAYLOAD_IMAGE_HPP
-#define APCOMP_PAYLOAD_IMAGE_HPP
+#ifndef APCOMP_SCALAR_IMAGE_HPP
+#define APCOMP_SCALAR_IMAGE_HPP
 
 #include <cmath>
 #include <vector>
@@ -11,7 +11,7 @@
 namespace apcomp
 {
 
-struct APCOMP_API PayloadImage
+struct APCOMP_API ScalarImage
 {
     // The image bounds are indicated by a grid starting at
     // 1-width and 1-height. Actual width would be calculated
@@ -25,10 +25,10 @@ struct APCOMP_API PayloadImage
     int                          m_payload_bytes; // Size of the payload in bytes
     float                        m_default_value;
 
-    PayloadImage()
+    ScalarImage()
     {}
 
-    PayloadImage(const Bounds &bounds, const int payload_bytes)
+    ScalarImage(const Bounds &bounds, const int payload_bytes)
       : m_orig_bounds(bounds),
         m_bounds(bounds),
         m_orig_rank(-1),
@@ -41,7 +41,7 @@ struct APCOMP_API PayloadImage
       m_depths.resize(dx * dy);
     }
 
-    void InitOriginal(const PayloadImage &other)
+    void InitOriginal(const ScalarImage &other)
     {
       m_orig_bounds = other.m_orig_bounds;
       m_bounds = other.m_orig_bounds;
@@ -87,7 +87,7 @@ struct APCOMP_API PayloadImage
     //
     // Fill this image with a sub-region of another image
     //
-    void SubsetFrom(const PayloadImage &image,
+    void SubsetFrom(const ScalarImage &image,
                     const Bounds &sub_region)
     {
       m_orig_bounds = image.m_orig_bounds;
@@ -137,7 +137,7 @@ struct APCOMP_API PayloadImage
     //
     // Fills the passed in image with the contents of this image
     //
-    void SubsetTo(PayloadImage &image) const
+    void SubsetTo(ScalarImage &image) const
     {
       assert(m_bounds.m_min_x >= image.m_bounds.m_min_x);
       assert(m_bounds.m_min_y >= image.m_bounds.m_min_y);
@@ -171,7 +171,7 @@ struct APCOMP_API PayloadImage
       }
     }
 
-    void Swap(PayloadImage &other)
+    void Swap(ScalarImage &other)
     {
       Bounds orig   = m_orig_bounds;
       Bounds bounds = m_bounds;

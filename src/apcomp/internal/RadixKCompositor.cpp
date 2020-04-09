@@ -1,5 +1,5 @@
 #include <apcomp/internal/ImageCompositor.hpp>
-#include <apcomp/internal/PayloadImageCompositor.hpp>
+#include <apcomp/internal/ScalarImageCompositor.hpp>
 #include <apcomp/internal/MPICollect.hpp>
 #include <apcomp/internal/RadixKCompositor.hpp>
 #include <apcomp/internal/apcomp_diy_collect.hpp>
@@ -18,9 +18,9 @@ template<typename ImageType>
 void DepthComposite(ImageType &front, ImageType &back);
 
 template<>
-void DepthComposite<PayloadImage>(PayloadImage &front, PayloadImage &back)
+void DepthComposite<ScalarImage>(ScalarImage &front, ScalarImage &back)
 {
-  apcomp::PayloadImageCompositor compositor;
+  apcomp::ScalarImageCompositor compositor;
   compositor.ZBufferComposite(front, back);
 }
 
@@ -174,13 +174,15 @@ RadixKCompositor::CompositeImpl(apcompdiy::mpi::communicator &diy_comm, ImageTyp
 }
 
 void
-RadixKCompositor::CompositeSurface(apcompdiy::mpi::communicator &diy_comm, Image &image)
+RadixKCompositor::CompositeSurface(apcompdiy::mpi::communicator &diy_comm,
+                                   Image &image)
 {
   CompositeImpl(diy_comm, image);
 }
 
 void
-RadixKCompositor::CompositeSurface(apcompdiy::mpi::communicator &diy_comm, PayloadImage &image)
+RadixKCompositor::CompositeSurface(apcompdiy::mpi::communicator &diy_comm,
+                                   ScalarImage &image)
 {
   CompositeImpl(diy_comm, image);
 }

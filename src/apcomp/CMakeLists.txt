@@ -9,8 +9,8 @@ set(apcomp_headers
   image.hpp
   compositor.hpp
   partial_compositor.hpp
-  payload_compositor.hpp
-  payload_image.hpp
+  scalar_compositor.hpp
+  scalar_image.hpp
   absorption_partial.hpp
   emission_partial.hpp
   volume_partial.hpp
@@ -23,7 +23,7 @@ set(apcomp_sources
   image.cpp
   Compositor.cpp
   partial_compositor.cpp
-  payload_compositor.cpp
+  scalar_compositor.cpp
   utils/PNGEncoder.cpp
   utils/lodepng.cpp
   )

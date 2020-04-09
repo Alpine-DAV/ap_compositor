@@ -2,7 +2,7 @@
 #define APCOMP_DIY_IMAGE_BLOCK_HPP
 
 #include <apcomp/image.hpp>
-#include <apcomp/payload_image.hpp>
+#include <apcomp/scalar_image.hpp>
 #include <diy/master.hpp>
 
 namespace apcomp
@@ -86,9 +86,9 @@ struct AddMultiImageBlock
 namespace apcompdiy {
 
 template<>
-struct Serialization<apcomp::PayloadImage>
+struct Serialization<apcomp::ScalarImage>
 {
-  static void save(BinaryBuffer &bb, const apcomp::PayloadImage &image)
+  static void save(BinaryBuffer &bb, const apcomp::ScalarImage &image)
   {
     apcompdiy::save(bb, image.m_orig_bounds.m_min_x);
     apcompdiy::save(bb, image.m_orig_bounds.m_min_y);
@@ -106,7 +106,7 @@ struct Serialization<apcomp::PayloadImage>
     apcompdiy::save(bb, image.m_orig_rank);
   }
 
-  static void load(BinaryBuffer &bb, apcomp::PayloadImage &image)
+  static void load(BinaryBuffer &bb, apcomp::ScalarImage &image)
   {
     apcompdiy::load(bb, image.m_orig_bounds.m_min_x);
     apcompdiy::load(bb, image.m_orig_bounds.m_min_y);

@@ -29,7 +29,8 @@ Image::Image(const Bounds &bounds)
     m_depths.resize(dx * dy);
 }
 
-void Image::InitOriginal(const Image &other)
+void
+Image::InitOriginal(const Image &other)
 {
   m_orig_bounds = other.m_orig_bounds;
   m_bounds = other.m_orig_bounds;

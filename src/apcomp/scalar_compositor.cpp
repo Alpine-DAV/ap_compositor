@@ -1,5 +1,5 @@
-#include "payload_compositor.hpp"
-#include <apcomp/internal/PayloadImageCompositor.hpp>
+#include "scalar_compositor.hpp"
+#include <apcomp/internal/ScalarImageCompositor.hpp>
 
 #include <assert.h>
 #include <algorithm>
@@ -26,7 +26,7 @@ PayloadCompositor::ClearImages()
 }
 
 void
-PayloadCompositor::AddImage(PayloadImage &image)
+PayloadCompositor::AddImage(ScalarImage &image)
 {
   assert(image.GetNumberOfPixels() != 0);
 
@@ -39,12 +39,12 @@ PayloadCompositor::AddImage(PayloadImage &image)
     //
     // Do local composite and keep a single image
     //
-    apcomp::PayloadImageCompositor compositor;
+    apcomp::ScalarImageCompositor compositor;
     compositor.ZBufferComposite(m_images[0],image);
   }
 }
 
-PayloadImage
+ScalarImage
 PayloadCompositor::Composite()
 {
   assert(m_images.size() != 0);

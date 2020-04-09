@@ -3,7 +3,7 @@
 
 #include <sstream>
 #include <apcomp/apcomp_exports.h>
-#include <apcomp/payload_image.hpp>
+#include <apcomp/scalar_image.hpp>
 
 namespace apcomp
 {
@@ -15,11 +15,11 @@ public:
 
     void ClearImages();
 
-    void AddImage(PayloadImage &image);
+    void AddImage(ScalarImage &image);
 
-    PayloadImage Composite();
+    ScalarImage Composite();
 protected:
-    std::vector<PayloadImage>  m_images;
+    std::vector<ScalarImage>  m_images;
 };
 
 };

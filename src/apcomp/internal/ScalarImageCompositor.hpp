@@ -1,7 +1,7 @@
-#ifndef APCOMP_PAYLOAD_IMAGE_COMPOSITOR_HPP
-#define APCOMP_PAYLOAD_IMAGE_COMPOSITOR_HPP
+#ifndef APCOMP_SCALAR_IMAGE_COMPOSITOR_HPP
+#define APCOMP_SCALAR_IMAGE_COMPOSITOR_HPP
 
-#include <apcomp/payload_image.hpp>
+#include <apcomp/scalar_image.hpp>
 #include <algorithm>
 #include <cmath>
 #include <iostream>
@@ -11,11 +11,11 @@
 namespace apcomp
 {
 
-class APCOMP_API PayloadImageCompositor
+class APCOMP_API ScalarImageCompositor
 {
 public:
 
-void ZBufferComposite(apcomp::PayloadImage &front, const apcomp::PayloadImage &image)
+void ZBufferComposite(apcomp::ScalarImage &front, const apcomp::ScalarImage &image)
 {
   if(front.m_payload_bytes != image.m_payload_bytes)
   {
