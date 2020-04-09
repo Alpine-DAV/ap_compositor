@@ -1,8 +1,8 @@
 #ifndef APCOMP_DIY_IMAGE_BLOCK_HPP
 #define APCOMP_DIY_IMAGE_BLOCK_HPP
 
-#include <apcomp/Image.hpp>
-#include <apcomp/PayloadImage.hpp>
+#include <apcomp/image.hpp>
+#include <apcomp/payload_image.hpp>
 #include <diy/master.hpp>
 
 namespace apcomp

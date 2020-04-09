@@ -1,7 +1,7 @@
 #ifndef APCOMP_PAYLOAD_IMAGE_COMPOSITOR_HPP
 #define APCOMP_PAYLOAD_IMAGE_COMPOSITOR_HPP
 
-#include <apcomp/PayloadImage.hpp>
+#include <apcomp/payload_image.hpp>
 #include <algorithm>
 #include <cmath>
 #include <iostream>

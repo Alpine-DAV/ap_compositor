@@ -39,7 +39,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-#include "PartialCompositor.hpp"
+#include "partial_compositor.hpp"
 #include <algorithm>
 #include <assert.h>
 #include <limits>

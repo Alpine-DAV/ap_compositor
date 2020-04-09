@@ -1,4 +1,4 @@
-#include "Compositor.hpp"
+#include "compositor.hpp"
 #include <apcomp/internal/ImageCompositor.hpp>
 
 #include <assert.h>

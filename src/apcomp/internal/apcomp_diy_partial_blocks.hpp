@@ -44,9 +44,9 @@
 
 #include <diy/master.hpp>
 
-#include <apcomp/AbsorptionPartial.hpp>
-#include <apcomp/EmissionPartial.hpp>
-#include <apcomp/VolumePartial.hpp>
+#include <apcomp/absorption_partial.hpp>
+#include <apcomp/emission_partial.hpp>
+#include <apcomp/volume_partial.hpp>
 
 namespace apcomp {
 

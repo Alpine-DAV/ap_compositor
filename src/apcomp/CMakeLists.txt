@@ -4,26 +4,26 @@
 
 set(apcomp_headers
   apcomp.hpp
-  Bounds.hpp
-  Error.hpp
-  Image.hpp
-  Compositor.hpp
-  PartialCompositor.hpp
-  PayloadCompositor.hpp
-  PayloadImage.hpp
-  AbsorptionPartial.hpp
-  EmissionPartial.hpp
-  VolumePartial.hpp
+  bounds.hpp
+  error.hpp
+  image.hpp
+  compositor.hpp
+  partial_compositor.hpp
+  payload_compositor.hpp
+  payload_image.hpp
+  absorption_partial.hpp
+  emission_partial.hpp
+  volume_partial.hpp
   utils/PNGEncoder.hpp
   utils/lodepng.h
   )
 
 set(apcomp_sources
   apcomp.cpp
-  Image.cpp
+  image.cpp
   Compositor.cpp
-  PartialCompositor.cpp
-  PayloadCompositor.cpp
+  partial_compositor.cpp
+  payload_compositor.cpp
   utils/PNGEncoder.cpp
   utils/lodepng.cpp
   )

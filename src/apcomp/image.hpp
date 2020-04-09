@@ -1,9 +1,9 @@
-#ifndef APCOMP_DIY_IMAGE_HPP
-#define APCOMP_DIY_IMAGE_HPP
+#ifndef APCOMP_IMAGE_HPP
+#define APCOMP_IMAGE_HPP
 
 #include <sstream>
 #include <vector>
-#include <apcomp/Bounds.hpp>
+#include <apcomp/bounds.hpp>
 
 #include <apcomp/apcomp_exports.h>
 

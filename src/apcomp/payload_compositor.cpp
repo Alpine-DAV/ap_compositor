@@ -1,4 +1,4 @@
-#include "PayloadCompositor.hpp"
+#include "payload_compositor.hpp"
 #include <apcomp/internal/PayloadImageCompositor.hpp>
 
 #include <assert.h>

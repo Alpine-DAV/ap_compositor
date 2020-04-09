@@ -4,7 +4,7 @@
 #include <cmath>
 #include <vector>
 #include <vector>
-#include <apcomp/Bounds.hpp>
+#include <apcomp/bounds.hpp>
 
 #include <apcomp/apcomp_exports.h>
 

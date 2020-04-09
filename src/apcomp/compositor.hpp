@@ -3,7 +3,7 @@
 
 #include <sstream>
 #include <apcomp/apcomp_exports.h>
-#include <apcomp/Image.hpp>
+#include <apcomp/image.hpp>
 
 namespace apcomp
 {

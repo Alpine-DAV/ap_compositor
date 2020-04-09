@@ -2,7 +2,7 @@
 #define APCOMP_DIY_UTILS_HPP
 
 #include <diy/decomposition.hpp>
-#include <apcomp/Bounds.hpp>
+#include <apcomp/bounds.hpp>
 
 namespace apcomp
 {

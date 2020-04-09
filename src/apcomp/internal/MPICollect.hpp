@@ -1,7 +1,7 @@
 #ifndef APCOMP_MPI_COLLECT_HPP
 #define APCOMP_MPI_COLLECT_HPP
 
-#include <apcomp/Image.hpp>
+#include <apcomp/image.hpp>
 #include <diy/mpi.hpp>
 #include <sstream>
 

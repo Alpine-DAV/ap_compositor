@@ -1,7 +1,7 @@
 #ifndef APCOMP_DIY_DIRECT_SEND_HPP
 #define APCOMP_DIY_DIRECT_SEND_HPP
 
-#include <apcomp/Image.hpp>
+#include <apcomp/image.hpp>
 #include <diy/mpi.hpp>
 #include <sstream>
 

@@ -39,43 +39,68 @@
 // POSSIBILITY OF SUCH DAMAGE.
 //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-#ifndef APCOMP_PARTIAL_COMPOSITOR_h
-#define APCOMP_PARTIAL_COMPOSITOR_h
+#ifndef APCOMP_ABSORPTION_PARTIAL_h
+#define APCOMP_ABSORPTION_PARTIAL_h
 
-#include <vector>
-#include <iostream>
-#include <apcomp/apcomp_exports.h>
-#include <apcomp/AbsorptionPartial.hpp>
-#include <apcomp/EmissionPartial.hpp>
-#include <apcomp/VolumePartial.hpp>
-
+#include <assert.h>
 
 namespace apcomp {
 
-template<typename PartialType>
-class APCOMP_API PartialCompositor
+template<typename FloatType>
+struct AbsorptionPartial
 {
-public:
-  PartialCompositor();
-  ~PartialCompositor();
-  void
-  composite(std::vector<std::vector<PartialType>> &partial_images,
-            std::vector<PartialType> &output_partials);
-  void set_background(std::vector<float> &background_values);
-  void set_background(std::vector<double> &background_values);
-  void set_comm_handle(int mpi_comm_id);
-protected:
-  void merge(const std::vector<std::vector<PartialType>> &in_partials,
-             std::vector<PartialType> &partials,
-             int &global_min_pixel,
-             int &global_max_pixel);
+  typedef FloatType ValueType;
+  int                    m_pixel_id;
+  double                 m_depth;
+  std::vector<FloatType> m_bins;
 
-  void composite_partials(std::vector<PartialType> &partials,
-                          std::vector<PartialType> &output_partials);
+  AbsorptionPartial()
+    : m_pixel_id(0),
+      m_depth(0.f)
+  {}
 
-  std::vector<typename PartialType::ValueType> m_background_values;
-  int m_mpi_comm_id;
+  void print()
+  {
+
+  }
+
+  bool operator < (const AbsorptionPartial<FloatType> &other) const
+  {
+    //
+    // In absorption only we can blend the same
+    // pixel ids in any order
+    //
+    return m_pixel_id < other.m_pixel_id;
+  }
+
+  inline void blend(const AbsorptionPartial<FloatType> &other)
+  {
+    const int num_bins = static_cast<int>(m_bins.size());
+    assert(num_bins == (int)other.m_bins.size());
+    for(int i = 0; i < num_bins; ++i)
+    {
+      m_bins[i] *= other.m_bins[i];
+    }
+  }
+
+  static void composite_background(std::vector<AbsorptionPartial> &partials,
+                                   const std::vector<FloatType> &background)
+  {
+    const int size = static_cast<int>(partials.size());
+    AbsorptionPartial<FloatType> bg;
+    bg.m_bins = background;
+#ifdef APCOMP_USE_OPENMP
+    #pragma omp parallel for
+#endif
+    for(int i = 0; i < size; ++i)
+    {
+      partials[i].blend(bg);
+    }
+  }
+
 };
 
-}; // namespace rover
+} // namespace rover
+
+
 #endif

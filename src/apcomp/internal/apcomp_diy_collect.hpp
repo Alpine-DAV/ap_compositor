@@ -5,7 +5,7 @@
 #include <diy/partners/swap.hpp>
 #include <diy/reduce.hpp>
 #include <diy/reduce-operations.hpp>
-#include <apcomp/Image.hpp>
+#include <apcomp/image.hpp>
 #include <apcomp/internal/apcomp_diy_image_block.hpp>
 
 namespace apcomp

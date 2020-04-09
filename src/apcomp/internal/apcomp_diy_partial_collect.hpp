@@ -42,9 +42,9 @@
 #ifndef APCOMP_DIY_COLLECT_h
 #define APCOMP_DIY_COLLECT_h
 
-#include <apcomp/AbsorptionPartial.hpp>
-#include <apcomp/EmissionPartial.hpp>
-#include <apcomp/VolumePartial.hpp>
+#include <apcomp/absorption_partial.hpp>
+#include <apcomp/emission_partial.hpp>
+#include <apcomp/volume_partial.hpp>
 #include <diy/assigner.hpp>
 #include <diy/decomposition.hpp>
 #include <diy/master.hpp>

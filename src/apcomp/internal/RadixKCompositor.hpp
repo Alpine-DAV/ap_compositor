@@ -1,8 +1,8 @@
 #ifndef APCOMP_DIY_RADIX_K_HPP
 #define APCOMP_DIY_RADIX_K_HPP
 
-#include <apcomp/Image.hpp>
-#include <apcomp/PayloadImage.hpp>
+#include <apcomp/image.hpp>
+#include <apcomp/payload_image.hpp>
 #include <diy/mpi.hpp>
 #include <sstream>
 

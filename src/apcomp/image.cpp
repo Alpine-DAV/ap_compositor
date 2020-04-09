@@ -1,7 +1,7 @@
 // See License.txt
 
-#include "Image.hpp"
-#include <apcomp/Error.hpp>
+#include "image.hpp"
+#include <apcomp/error.hpp>
 #include <apcomp/utils/PNGEncoder.hpp>
 
 namespace apcomp

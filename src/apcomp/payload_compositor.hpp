@@ -3,7 +3,7 @@
 
 #include <sstream>
 #include <apcomp/apcomp_exports.h>
-#include <apcomp/PayloadImage.hpp>
+#include <apcomp/payload_image.hpp>
 
 namespace apcomp
 {

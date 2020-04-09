@@ -1,7 +1,7 @@
-#ifndef APCOMP_DIY_IMAGE_COMPOSITOR_HPP
-#define APCOMP_DIY_IMAGE_COMPOSITOR_HPP
+#ifndef APCOMP_IMAGE_COMPOSITOR_HPP
+#define APCOMP_IMAGE_COMPOSITOR_HPP
 
-#include <apcomp/Image.hpp>
+#include <apcomp/image.hpp>
 #include <algorithm>
 
 #include<apcomp/apcomp_exports.h>
