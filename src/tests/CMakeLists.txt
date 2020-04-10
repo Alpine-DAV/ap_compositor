@@ -56,13 +56,16 @@ set(BASIC_TESTS t_apcomp_smoke
 set(MPI_TESTS t_apcomp_mpi_smoke
               t_apcomp_zbuffer_mpi)
 
+if(ENABLE_OPENMP)
+  set(apcomp_deps openmp)
+endif()
 ################################
 # Add main tests
 ################################
 if (ENABLE_SERIAL)
     message(STATUS "Adding  lib unit tests")
     foreach(TEST ${BASIC_TESTS})
-        add_cpp_test(TEST ${TEST} DEPENDS_ON apcomp)
+        add_cpp_test(TEST ${TEST} DEPENDS_ON apcomp ${apcomp_deps})
     endforeach()
 endif()
 ################################
@@ -73,7 +76,7 @@ if(MPI_FOUND AND ENABLE_MPI)
     message(STATUS "MPI enabled: Adding related unit tests")
     foreach(TEST ${MPI_TESTS})
         # this uses 4 procs
-        add_cpp_mpi_test(TEST ${TEST} NUM_MPI_TASKS 4 DEPENDS_ON apcomp_mpi)
+        add_cpp_mpi_test(TEST ${TEST} NUM_MPI_TASKS 4 DEPENDS_ON apcomp_mpi ${apcomp_deps})
     endforeach()
 else()
     message(STATUS "MPI disabled: Skipping related tests")

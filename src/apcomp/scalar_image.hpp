@@ -7,6 +7,7 @@
 #include <apcomp/bounds.hpp>
 
 #include <apcomp/apcomp_exports.h>
+#include <assert.h>
 
 namespace apcomp
 {

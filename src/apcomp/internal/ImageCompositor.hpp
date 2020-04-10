@@ -4,7 +4,8 @@
 #include <apcomp/image.hpp>
 #include <algorithm>
 
-#include<apcomp/apcomp_exports.h>
+#include <apcomp/apcomp_exports.h>
+#include <assert.h>
 
 namespace apcomp
 {

@@ -1,5 +1,5 @@
 #include "apcomp.hpp"
-#include "Error.hpp"
+#include "error.hpp"
 #include <sstream>
 
 #ifdef APCOMP_PARALLEL
