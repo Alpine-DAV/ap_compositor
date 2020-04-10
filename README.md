@@ -19,3 +19,9 @@ The compositing functionality was originally included in the [Ascent](https://gi
 
 # Funding
 Work on this library has beed funded by US Department of Energy through the Exascale Computing Project ([ECP](https://www.exascaleproject.org/)) and the [ASC](https://asc.llnl.gov/) program.
+
+# License
+
+AP Compositor  is released under a BSD-style license - for detailed
+license info, refer to the following files in the  source tree:
+- [LICENSE](/LICENSE)
