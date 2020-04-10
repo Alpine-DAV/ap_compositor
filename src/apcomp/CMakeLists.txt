@@ -21,7 +21,7 @@ set(apcomp_headers
 set(apcomp_sources
   apcomp.cpp
   image.cpp
-  Compositor.cpp
+  compositor.cpp
   partial_compositor.cpp
   scalar_compositor.cpp
   utils/PNGEncoder.cpp
