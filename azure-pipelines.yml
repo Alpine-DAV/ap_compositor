@@ -102,7 +102,7 @@ stages:
            export CMAKE_OPTS="${CMAKE_OPTS} -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS}"
            export CMAKE_OPTS="${CMAKE_OPTS} -DCMAKE_INSTALL_PREFIX=../install"
            # configure
-           cmake ${CMAKE_OPTS} -C ${HOST_CONFIG} ../src
+           cmake ${CMAKE_OPTS} ../src
         displayName: 'Configure with CMake'
 
       - script: |
