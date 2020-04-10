@@ -14,7 +14,8 @@ set(apcomp_headers
   absorption_partial.hpp
   emission_partial.hpp
   volume_partial.hpp
-  utils/PNGEncoder.hpp
+  utils/png_decoder.hpp
+  utils/png_encoder.hpp
   utils/lodepng.h
   )
 
@@ -24,7 +25,8 @@ set(apcomp_sources
   compositor.cpp
   partial_compositor.cpp
   scalar_compositor.cpp
-  utils/PNGEncoder.cpp
+  utils/png_decoder.cpp
+  utils/png_encoder.cpp
   utils/lodepng.cpp
   )
 

@@ -2,7 +2,7 @@
 
 #include "image.hpp"
 #include <apcomp/error.hpp>
-#include <apcomp/utils/PNGEncoder.hpp>
+#include <apcomp/utils/png_encoder.hpp>
 #include <assert.h>
 
 namespace apcomp
