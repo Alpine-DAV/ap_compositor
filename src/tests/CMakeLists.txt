@@ -55,7 +55,8 @@ set(BASIC_TESTS t_apcomp_smoke
                 t_apcomp_c_order)
 
 set(MPI_TESTS t_apcomp_mpi_smoke
-              t_apcomp_zbuffer_mpi)
+              t_apcomp_zbuffer_mpi
+              t_apcomp_c_order_mpi)
 
 if(ENABLE_OPENMP)
   set(apcomp_deps openmp)
