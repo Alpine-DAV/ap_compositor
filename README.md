@@ -1,6 +1,6 @@
 # AP Compositor
 
-This is the AP Compositor which is a sort-last image compositing library.  This library is designed for use-cases beyond traditional zbuffer image compositing. The intention is to fill gaps in functionality that other image compositing libraries do not support. The AP Compositor is a hybrid-parallel library: with support for both OpenMP (thread-level parallelism) and MPI
+This is the AP Compositor, a sort-last image compositing library.  This library is designed for use-cases beyond traditional zbuffer image compositing. The intention is to fill gaps in functionality that other image compositing libraries do not support. The AP Compositor is a hybrid-parallel library: with support for both OpenMP (thread-level parallelism) and MPI
 
 
 # Functionality
