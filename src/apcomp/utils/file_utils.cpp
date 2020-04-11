@@ -42,6 +42,7 @@
 //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
+#include <apcomp/utils/file_utils.hpp>
 // file system funcs
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -53,7 +54,6 @@
 #include <algorithm>
 #include <limits>
 #include <fstream>
-#include <vector>
 
 namespace apcomp
 {
