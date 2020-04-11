@@ -1,15 +1,11 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
-// Copyright (c) 2015-2017, Lawrence Livermore National Security, LLC.
+// Copyright (c) 2015-2019, Lawrence Livermore National Security, LLC.
 //
 // Produced at the Lawrence Livermore National Laboratory
 //
 // LLNL-CODE-716457
 //
 // All rights reserved.
-//
-// This file is part of APCompositor.
-//
-// For details, see: http://software.llnl.gov/ascent/.
 //
 // Please also read ascent/LICENSE
 //
@@ -44,63 +40,30 @@
 
 //-----------------------------------------------------------------------------
 ///
-/// file: t_apcomp_zbuffer.cpp
+/// file: png_decoder.hpp
 ///
 //-----------------------------------------------------------------------------
+#ifndef APCOMP_PNG_DECODER_HPP
+#define APCOMP_PNG_DECODER_HPP
 
-#include "gtest/gtest.h"
-#include "t_test_utils.h"
+#include <string>
 
-#include <apcomp/apcomp.hpp>
-#include <apcomp/compositor.hpp>
-
-#include <iostream>
-
-using namespace std;
-
-
-//-----------------------------------------------------------------------------
-TEST(apcomp_zbuffer, apcomp_zbuffer)
+namespace apcomp
 {
-  std::string output_dir = prepare_output_dir();
-  std::string file_name = "zbuffer";
-  std::string output_file = apcomp::join_file_path(output_dir,file_name);
-  remove_test_file(output_file);
 
-  apcomp::Compositor compositor;
-  auto mode = apcomp::Compositor::CompositeMode::Z_BUFFER_SURFACE;
-  compositor.SetCompositeMode(mode);
+class PNGDecoder
+{
+public:
+    PNGDecoder();
+    ~PNGDecoder();
+    // rgba
+    void Decode(unsigned char *&rgba,
+                int &width,
+                int &height,
+                const std::string &file_name);
+};
 
-  const int width  = 1024;
-  const int height = 1024;
-  const int square_size = 300;
-  const int num_images  = 4;
-  const int y = 400;
-  for(int i = 0; i < num_images; ++i)
-  {
+} // namespace acpomp
+#endif
 
-    float color[4];
-    color[0] = 0.1f + float(i) * 0.1f;
-    color[1] = 0.1f + float(i) * 0.1f;
-    color[2] = 0.1f + float(i) * 0.1f;
-    color[3] = 1.f;
-    std::vector<float> pixels;
-    std::vector<float> depths;
-    gen_float32_image(pixels,
-                      depths,
-                      width,
-                      height,
-                      float(i) * 0.05f,
-                      200 + 100*i,
-                      y,
-                      square_size,
-                      color);
-
-    compositor.AddImage(&pixels[0], &depths[0], width, height);
-  }
-  apcomp::Image image = compositor.Composite();
-  image.Save(output_file);
-
-  EXPECT_TRUE(check_test_image(output_file));
-}
 

@@ -1,4 +1,4 @@
-#include "PNGEncoder.hpp"
+#include "png_encoder.hpp"
 
 // standard includes
 #include <stdlib.h>
