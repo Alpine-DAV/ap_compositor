@@ -99,7 +99,6 @@ PNGCompare::DiffImage(const unsigned char *buff_1,
   encoder.Encode(&out_buff[0],
                  width,
                  height);
-  std::cout<<"**** "<<out_name<<"\n";
   encoder.Save(out_name);
 }
 

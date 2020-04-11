@@ -76,7 +76,7 @@ if(MPI_FOUND AND ENABLE_MPI)
     message(STATUS "MPI enabled: Adding related unit tests")
     foreach(TEST ${MPI_TESTS})
         # this uses 4 procs
-        add_cpp_mpi_test(TEST ${TEST} NUM_MPI_TASKS 4 DEPENDS_ON apcomp_mpi ${apcomp_deps})
+        add_cpp_mpi_test(TEST ${TEST} NUM_PROCS 4 DEPENDS_ON apcomp_mpi ${apcomp_deps})
     endforeach()
 else()
     message(STATUS "MPI disabled: Skipping related tests")
