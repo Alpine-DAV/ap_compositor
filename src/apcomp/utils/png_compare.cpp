@@ -41,10 +41,12 @@
 #include <apcomp/utils/png_compare.hpp>
 #include <apcomp/utils/png_decoder.hpp>
 #include <apcomp/utils/png_encoder.hpp>
+#include <apcomp/utils/file_utils.hpp>
 #include <apcomp/error.hpp>
 
 // standard includes
 #include <stdlib.h>
+#include <iostream>
 #include <vector>
 
 namespace apcomp
@@ -97,7 +99,6 @@ PNGCompare::DiffImage(const unsigned char *buff_1,
   encoder.Encode(&out_buff[0],
                  width,
                  height);
-
   encoder.Save(out_name);
 }
 
@@ -143,11 +144,13 @@ PNGCompare::Compare(const std::string &img1,
 
     if(difference > tolerance)
     {
-      std::string file_name;
+      std::string file_name = img1;
       std::string path;
+      rsplit_file_path(img1, file_name, path);
 
       std::string diff_name = "diff_" + file_name;
-      DiffImage(buff_1, buff_2, w1, h1, diff_name);
+      std::string out_name = apcomp::join_file_path(path,diff_name);
+      DiffImage(buff_1, buff_2, w1, h1, out_name);
       res = false;
     }
   }
