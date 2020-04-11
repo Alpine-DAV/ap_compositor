@@ -63,6 +63,11 @@ using namespace std;
 //-----------------------------------------------------------------------------
 TEST(apcomp_zbuffer_mpi, apcomp_zbuffer_mpi)
 {
+  std::string output_dir = prepare_output_dir();
+  std::string file_name = "zbuffer_mpi";
+  std::string output_file = apcomp::join_file_path(output_dir,file_name);
+  remove_test_file(output_file);
+
   int par_rank;
   int par_size;
   MPI_Comm comm = MPI_COMM_WORLD;
@@ -102,7 +107,8 @@ TEST(apcomp_zbuffer_mpi, apcomp_zbuffer_mpi)
   apcomp::Image image = compositor.Composite();
   if(par_rank == 0)
   {
-    image.Save("zbuffer_mpi");
+    image.Save(output_file);
+    EXPECT_TRUE(check_test_image(output_file));
   }
 
 }

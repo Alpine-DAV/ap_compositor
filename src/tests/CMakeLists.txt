@@ -81,3 +81,11 @@ if(MPI_FOUND AND ENABLE_MPI)
 else()
     message(STATUS "MPI disabled: Skipping related tests")
 endif()
+
+configure_file ("${CMAKE_CURRENT_SOURCE_DIR}/t_config.hpp.in"
+                "${CMAKE_CURRENT_BINARY_DIR}/t_config.hpp")
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
+# for t_utils.hpp
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
