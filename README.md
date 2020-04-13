@@ -9,7 +9,7 @@ AP Compositor use cases:
 
  - ZBuffer image compositing
  - Order based compositing: used in compositing volume rendered images of structure meshes
-	- Partial compositing: for unstructred volume rendering, no visualization order can be calculated. As rays enter and exit segments of a mesh, local composits are created with a color, pixel id, and depth. These partial composites are sorted and blended in front-to-back order. Partial compositing also support radiograph data (absorption and absorpton + emission), i.e. an arbitrarty number of channels (energy groups).
+ - Partial compositing: for unstructred volume rendering, no visualization order can be calculated. As rays enter and exit segments of a mesh, local composits are created with a color, pixel id, and depth. These partial composites are sorted and blended in front-to-back order. Partial compositing also support radiograph data (absorption and absorpton + emission), i.e. an arbitrarty number of channels (energy groups).
   - Scalar rendering: an extention of zbuffer compositing. Instead of a color, scalar image supports attaching binary blobs of data to images, typically containing scalar data from different fields of the mesh. Images are then composited in a traditional manner. This can be used to create deffered rendering data sets for. An example use case is creating Cinema image databases.
 
 
