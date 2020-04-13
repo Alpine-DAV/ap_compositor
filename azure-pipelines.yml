@@ -151,7 +151,7 @@ stages:
         displayName: 'Test vs Install (using-with-cmake)'
         condition: succeeded()
 
-        - script: |
+      - script: |
           ###########################
           # using with make example
           ###########################
