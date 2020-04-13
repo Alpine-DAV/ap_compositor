@@ -123,6 +123,11 @@ endif()
 #endif()
 
 ################################
+# Add our config helpers
+################################
+add_subdirectory(config)
+
+################################
 # Create CMake importable
 # exports for all of our targets
 ################################
