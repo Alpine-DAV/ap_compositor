@@ -150,3 +150,16 @@ stages:
           ./apcomp_example
         displayName: 'Test vs Install (using-with-cmake)'
         condition: succeeded()
+
+        - script: |
+          ###########################
+          # using with make example
+          ###########################
+          cat install/share/apcomp/apcomp_config.mk
+          pwd
+          ls -l
+          cd install/examples/apcomp/using-with-make
+          make
+          ./apcomp_example
+        displayName: 'Test vs Install (using-with-make)'
+        condition: succeeded()
