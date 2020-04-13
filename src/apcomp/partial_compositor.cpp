@@ -40,6 +40,7 @@
 //
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 #include "partial_compositor.hpp"
+#include <apcomp/apcomp.hpp>
 #include <algorithm>
 #include <assert.h>
 #include <limits>
@@ -308,7 +309,7 @@ PartialCompositor<PartialType>::merge(const std::vector<std::vector<PartialType>
   global_max_pixel = max_pixel;
 
 #ifdef APCOMP_PARALLEL
-  MPI_Comm comm_handle = MPI_Comm_f2c(m_mpi_comm_id);
+  MPI_Comm comm_handle = MPI_Comm_f2c(mpi_comm());
   int rank_min = global_min_pixel;
   int rank_max = global_max_pixel;
   int mpi_min;
@@ -496,7 +497,7 @@ PartialCompositor<PartialType>::composite(std::vector<std::vector<PartialType>> 
 {
   int global_partial_images = partial_images.size();
 #ifdef APCOMP_PARALLEL
-  MPI_Comm comm_handle = MPI_Comm_f2c(m_mpi_comm_id);
+  MPI_Comm comm_handle = MPI_Comm_f2c(mpi_comm());
   int local_partials = global_partial_images;
   MPI_Allreduce(&local_partials, &global_partial_images, 1, MPI_INT, MPI_SUM, comm_handle);
 #endif
@@ -562,13 +563,6 @@ PartialCompositor<PartialType>::set_background(std::vector<double> &background_v
   {
     m_background_values[i] = background_values[i];
   }
-}
-
-template<typename PartialType>
-void
-PartialCompositor<PartialType>::set_comm_handle(int mpi_comm_id)
-{
-  m_mpi_comm_id  = mpi_comm_id;
 }
 
 //Explicit function instantiations

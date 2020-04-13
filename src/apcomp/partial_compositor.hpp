@@ -63,7 +63,6 @@ public:
             std::vector<PartialType> &output_partials);
   void set_background(std::vector<float> &background_values);
   void set_background(std::vector<double> &background_values);
-  void set_comm_handle(int mpi_comm_id);
 protected:
   void merge(const std::vector<std::vector<PartialType>> &in_partials,
              std::vector<PartialType> &partials,
@@ -74,7 +73,6 @@ protected:
                           std::vector<PartialType> &output_partials);
 
   std::vector<typename PartialType::ValueType> m_background_values;
-  int m_mpi_comm_id;
 };
 
 }; // namespace rover
