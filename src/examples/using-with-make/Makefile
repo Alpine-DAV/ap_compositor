@@ -58,7 +58,7 @@
 #
 ###############################################################################
 
-ASCENT_DIR ?= ../../..
+APCOMP_DIR ?= ../../..
 
 # See $(APCOMP_DIR)/share/apcomp/apcomp_config.mk for detailed linking info
 include $(APCOMP_DIR)/share/apcomp/apcomp_config.mk
