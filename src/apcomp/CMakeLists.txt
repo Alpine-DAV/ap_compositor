@@ -4,6 +4,7 @@
 
 set(apcomp_headers
   apcomp.hpp
+  apcomp_exports.h
   bounds.hpp
   error.hpp
   image.hpp
@@ -52,6 +53,8 @@ if (ENABLE_SERIAL)
     if(ENABLE_OPENMP)
         target_compile_definitions(apcomp PRIVATE APCOMP_USE_OPENMP)
     endif()
+
+    target_include_directories(apcomp PUBLIC $<INSTALL_INTERFACE:include>)
 
     # Install libraries
     install(TARGETS apcomp
@@ -105,6 +108,7 @@ if (MPI_FOUND)
 
     #this is a workaround for a cmake issue linking an interface header only library statically
     target_include_directories(apcomp_mpi PRIVATE $<TARGET_PROPERTY:apcompdiy,INTERFACE_INCLUDE_DIRECTORIES>)
+    target_include_directories(apcomp_mpi PUBLIC $<INSTALL_INTERFACE:include>)
 
     target_compile_definitions(apcomp_mpi PRIVATE APCOMP_PARALLEL)
     target_compile_definitions(apcomp_mpi PRIVATE APCOMP_COMPILING_FLAG)
