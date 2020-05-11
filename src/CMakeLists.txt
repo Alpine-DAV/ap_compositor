@@ -52,6 +52,7 @@ option(BUILD_SHARED_LIBS  "Build shared libraries"    ON)
 option(ENABLE_TESTS       "Build tests"               ON)
 option(ENABLE_MPI         "Build MPI Support"         ON)
 option(ENABLE_SERIAL      "Build Non-MPI Support"     ON)
+option(ENABLE_OPENMP      "Build OpenMP Support"      ON)
 
 if(NOT ENABLE_SERIAL AND NOT ENABLE_MPI)
   message(FATAL_ERROR "No libraries are built. "
