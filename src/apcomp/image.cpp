@@ -11,9 +11,9 @@ namespace apcomp
 Image::Image()
   : m_orig_rank(-1),
     m_has_transparency(false),
-    m_composite_order(-1)
+    m_composite_order(-1),
+    m_gl_depth(true)
 {
-
 }
 
 Image::Image(const Bounds &bounds)
@@ -21,7 +21,8 @@ Image::Image(const Bounds &bounds)
     m_bounds(bounds),
     m_orig_rank(-1),
     m_has_transparency(false),
-    m_composite_order(-1)
+    m_composite_order(-1),
+    m_gl_depth(true)
 
 {
     const int dx  = bounds.m_max_x - bounds.m_min_x + 1;
@@ -44,6 +45,7 @@ Image::InitOriginal(const Image &other)
   m_orig_rank = -1;
   m_has_transparency = false;
   m_composite_order = -1;
+  m_gl_depth = other.m_gl_depth;
 }
 
 void
@@ -51,6 +53,7 @@ Image::Init(const float *color_buffer,
             const float *depth_buffer,
             int width,
             int height,
+            bool gl_depth,
             int composite_order)
 {
   m_composite_order = composite_order;
@@ -75,7 +78,10 @@ Image::Init(const float *color_buffer,
     m_pixels[offset + 3] = static_cast<unsigned char>(color_buffer[offset + 3] * 255.f);
     float depth = depth_buffer[i];
     //make sure we can do a single comparison on depth
-    depth = depth < 0 ? 2.f : depth;
+    if(gl_depth)
+    {
+      depth = depth < 0 ? 2.f : depth;
+    }
     m_depths[i] =  depth;
   }
 }
@@ -85,6 +91,7 @@ Image::Init(const unsigned char *color_buffer,
             const float *depth_buffer,
             int width,
             int height,
+            bool gl_depth,
             int composite_order)
 {
   m_composite_order = composite_order;
@@ -109,8 +116,11 @@ Image::Init(const unsigned char *color_buffer,
   {
     float depth = depth_buffer[i];
     //make sure we can do a single comparison on depth
-    depth = depth < 0 ? 2.f : depth;
-    m_depths[i] =  depth;
+    if(gl_depth)
+    {
+      depth = depth < 0 ? 2.f : depth;
+    }
+    m_depths[i] = depth;
   } // for
 }
 

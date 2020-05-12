@@ -76,7 +76,7 @@ TEST(apcomp_zbuffer_mpi, apcomp_zbuffer_mpi)
   apcomp::mpi_comm(MPI_Comm_c2f(comm));
 
   apcomp::Compositor compositor;
-  auto mode = apcomp::Compositor::CompositeMode::Z_BUFFER_SURFACE;
+  auto mode = apcomp::Compositor::CompositeMode::Z_BUFFER_SURFACE_GL;
   compositor.SetCompositeMode(mode);
 
   const int width  = 1024;

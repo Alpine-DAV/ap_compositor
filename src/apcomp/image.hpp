@@ -23,6 +23,7 @@ struct APCOMP_API Image
     int                          m_orig_rank;
     bool                         m_has_transparency;
     int                          m_composite_order;
+    bool                         m_gl_depth; // expect depth values in (0,1)
 
     Image();
 
@@ -42,12 +43,14 @@ struct APCOMP_API Image
               const float *depth_buffer,
               int width,
               int height,
+              bool gl_depth = true,
               int composite_order = -1);
 
     void Init(const unsigned char *color_buffer,
               const float *depth_buffer,
               int width,
               int height,
+              bool gl_depth = true,
               int composite_order = -1);
 
     void CompositeBackground(const float color[4]);
