@@ -68,7 +68,7 @@ TEST(apcomp_zbuffer, apcomp_zbuffer)
   remove_test_file(output_file);
 
   apcomp::Compositor compositor;
-  auto mode = apcomp::Compositor::CompositeMode::Z_BUFFER_SURFACE;
+  auto mode = apcomp::Compositor::CompositeMode::Z_BUFFER_SURFACE_GL;
   compositor.SetCompositeMode(mode);
 
   const int width  = 1024;

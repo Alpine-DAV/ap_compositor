@@ -16,7 +16,7 @@ namespace apcomp
 {
 
 Compositor::Compositor()
-  : m_composite_mode(Z_BUFFER_SURFACE)
+  : m_composite_mode(Z_BUFFER_SURFACE_GL)
 {
 
 }
@@ -49,16 +49,19 @@ Compositor::AddImage(const unsigned char *color_buffer,
   assert(m_composite_mode != VIS_ORDER_BLEND);
   assert(depth_buffer != NULL);
   Image image;
+  bool gl_depth = m_composite_mode != Z_BUFFER_SURFACE_WORLD;
   if(m_images.size() == 0)
   {
     m_images.push_back(image);
     m_images[0].Init(color_buffer,
                      depth_buffer,
                      width,
-                     height);
+                     height,
+                     gl_depth);
     //m_images[0].Save("first.png");
   }
-  else if(m_composite_mode == Z_BUFFER_SURFACE)
+  else if(m_composite_mode == Z_BUFFER_SURFACE_GL ||
+          m_composite_mode == Z_BUFFER_SURFACE_WORLD)
   {
     //
     // Do local composite and keep a single image
@@ -66,7 +69,8 @@ Compositor::AddImage(const unsigned char *color_buffer,
     image.Init(color_buffer,
                depth_buffer,
                width,
-               height);
+               height,
+               gl_depth);
     apcomp::ImageCompositor compositor;
     compositor.ZBufferComposite(m_images[0],image);
   }
@@ -91,15 +95,20 @@ Compositor::AddImage(const float *color_buffer,
   assert(m_composite_mode != VIS_ORDER_BLEND);
   assert(depth_buffer != NULL);
   Image image;
+
+  bool gl_depth = m_composite_mode != Z_BUFFER_SURFACE_WORLD;
+
   if(m_images.size() == 0)
   {
     m_images.push_back(image);
     m_images[0].Init(color_buffer,
                      depth_buffer,
                      width,
-                     height);
+                     height,
+                     gl_depth);
   }
-  else if(m_composite_mode == Z_BUFFER_SURFACE)
+  else if(m_composite_mode == Z_BUFFER_SURFACE_GL ||
+          m_composite_mode == Z_BUFFER_SURFACE_WORLD)
   {
     //
     // Do local composite and keep a single image
@@ -107,7 +116,8 @@ Compositor::AddImage(const float *color_buffer,
     image.Init(color_buffer,
                depth_buffer,
                width,
-               height);
+               height,
+               gl_depth);
 
     apcomp::ImageCompositor compositor;
     compositor.ZBufferComposite(m_images[0],image);
@@ -135,10 +145,12 @@ Compositor::AddImage(const unsigned char *color_buffer,
   Image image;
   const size_t image_index = m_images.size();
   m_images.push_back(image);
+  bool gl_depth = false;
   m_images[image_index].Init(color_buffer,
                              depth_buffer,
                              width,
                              height,
+                             gl_depth,
                              vis_order);
 }
 
@@ -153,11 +165,12 @@ Compositor::AddImage(const float *color_buffer,
   Image image;
   const size_t image_index = m_images.size();
   m_images.push_back(image);
-
+  bool gl_depth = false;
   m_images[image_index].Init(color_buffer,
                              depth_buffer,
                              width,
                              height,
+                             gl_depth,
                              vis_order);
 }
 
@@ -166,7 +179,8 @@ Compositor::Composite()
 {
   assert(m_images.size() != 0);
 
-  if(m_composite_mode == Z_BUFFER_SURFACE)
+  if(m_composite_mode == Z_BUFFER_SURFACE_GL ||
+     m_composite_mode == Z_BUFFER_SURFACE_WORLD )
   {
     CompositeZBufferSurface();
   }

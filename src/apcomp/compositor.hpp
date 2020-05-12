@@ -12,9 +12,10 @@ class APCOMP_API Compositor
 {
 public:
     enum CompositeMode {
-                         Z_BUFFER_SURFACE, // zbuffer composite no transparency
-                         Z_BUFFER_BLEND,   // zbuffer composite with transparency
-                         VIS_ORDER_BLEND   // blend images in a specific order
+                         Z_BUFFER_SURFACE_WORLD,// expect world depth no transparency
+                         Z_BUFFER_SURFACE_GL,   // zbuffer composite no transparency
+                         Z_BUFFER_BLEND,        // zbuffer composite with transparency
+                         VIS_ORDER_BLEND        // blend images in a specific order
                        };
     Compositor();
 

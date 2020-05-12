@@ -21,40 +21,40 @@ struct CompositeOrderSort
 class APCOMP_API ImageCompositor
 {
 public:
-  void Blend(apcomp::Image &front, apcomp::Image &back)
-  {
+ void Blend(apcomp::Image &front, apcomp::Image &back)
+ {
 
-    assert(front.m_bounds.m_min_x == back.m_bounds.m_min_x);
-    assert(front.m_bounds.m_min_y == back.m_bounds.m_min_y);
-    assert(front.m_bounds.m_max_x == back.m_bounds.m_max_x);
-    assert(front.m_bounds.m_max_y == back.m_bounds.m_max_y);
-    const int size = static_cast<int>(front.m_pixels.size() / 4);
+   assert(front.m_bounds.m_min_x == back.m_bounds.m_min_x);
+   assert(front.m_bounds.m_min_y == back.m_bounds.m_min_y);
+   assert(front.m_bounds.m_max_x == back.m_bounds.m_max_x);
+   assert(front.m_bounds.m_max_y == back.m_bounds.m_max_y);
+   const int size = static_cast<int>(front.m_pixels.size() / 4);
 
 #ifdef APCOMP_USE_OPENMP
-    #pragma omp parallel for
+  #pragma omp parallel for
 #endif
-    for(int i = 0; i < size; ++i)
-    {
-      const int offset = i * 4;
-      unsigned int alpha = front.m_pixels[offset + 3];
-      const unsigned int opacity = 255 - alpha;
+  for(int i = 0; i < size; ++i)
+  {
+    const int offset = i * 4;
+    unsigned int alpha = front.m_pixels[offset + 3];
+    const unsigned int opacity = 255 - alpha;
 
-      front.m_pixels[offset + 0] +=
-        static_cast<unsigned char>(opacity * back.m_pixels[offset + 0] / 255);
-      front.m_pixels[offset + 1] +=
-        static_cast<unsigned char>(opacity * back.m_pixels[offset + 1] / 255);
-      front.m_pixels[offset + 2] +=
-        static_cast<unsigned char>(opacity * back.m_pixels[offset + 2] / 255);
-      front.m_pixels[offset + 3] +=
-        static_cast<unsigned char>(opacity * back.m_pixels[offset + 3] / 255);
+    front.m_pixels[offset + 0] +=
+      static_cast<unsigned char>(opacity * back.m_pixels[offset + 0] / 255);
+    front.m_pixels[offset + 1] +=
+      static_cast<unsigned char>(opacity * back.m_pixels[offset + 1] / 255);
+    front.m_pixels[offset + 2] +=
+      static_cast<unsigned char>(opacity * back.m_pixels[offset + 2] / 255);
+    front.m_pixels[offset + 3] +=
+      static_cast<unsigned char>(opacity * back.m_pixels[offset + 3] / 255);
 
-      float d1 = std::min(front.m_depths[i], 1.001f);
-      float d2 = std::min(back.m_depths[i], 1.001f);
-      float depth = std::min(d1,d2);
-      front.m_depths[i] = depth;
-    }
+    float d1 = std::min(front.m_depths[i], 1.001f);
+    float d2 = std::min(back.m_depths[i], 1.001f);
+    float depth = std::min(d1,d2);
+    front.m_depths[i] = depth;
   }
-
+}
+// Only composite values the GL depths range (0,1)
 void ZBufferComposite(apcomp::Image &front, const apcomp::Image &image)
 {
   assert(front.m_depths.size() == front.m_pixels.size() / 4);
@@ -64,23 +64,46 @@ void ZBufferComposite(apcomp::Image &front, const apcomp::Image &image)
   assert(front.m_bounds.m_max_y == image.m_bounds.m_max_y);
 
   const int size = static_cast<int>(front.m_depths.size());
-
-#ifdef apcomp_USE_OPENMP
-  #pragma omp parallel for
-#endif
-  for(int i = 0; i < size; ++i)
+  bool gl_depth = front.m_gl_depth;
+  if(gl_depth)
   {
-    const float depth = image.m_depths[i];
-    if(depth > 1.f  || front.m_depths[i] < depth)
+#ifdef apcomp_USE_OPENMP
+    #pragma omp parallel for
+#endif
+    for(int i = 0; i < size; ++i)
     {
-      continue;
+      const float depth = image.m_depths[i];
+      if(depth > 1.f  || front.m_depths[i] < depth)
+      {
+        continue;
+      }
+      const int offset = i * 4;
+      front.m_depths[i] = depth;
+      front.m_pixels[offset + 0] = image.m_pixels[offset + 0];
+      front.m_pixels[offset + 1] = image.m_pixels[offset + 1];
+      front.m_pixels[offset + 2] = image.m_pixels[offset + 2];
+      front.m_pixels[offset + 3] = image.m_pixels[offset + 3];
     }
-    const int offset = i * 4;
-    front.m_depths[i] = depth;
-    front.m_pixels[offset + 0] = image.m_pixels[offset + 0];
-    front.m_pixels[offset + 1] = image.m_pixels[offset + 1];
-    front.m_pixels[offset + 2] = image.m_pixels[offset + 2];
-    front.m_pixels[offset + 3] = image.m_pixels[offset + 3];
+  }
+  else
+  {
+#ifdef apcomp_USE_OPENMP
+    #pragma omp parallel for
+#endif
+    for(int i = 0; i < size; ++i)
+    {
+      const float depth = image.m_depths[i];
+      if(front.m_depths[i] < depth)
+      {
+        continue;
+      }
+      const int offset = i * 4;
+      front.m_depths[i] = depth;
+      front.m_pixels[offset + 0] = image.m_pixels[offset + 0];
+      front.m_pixels[offset + 1] = image.m_pixels[offset + 1];
+      front.m_pixels[offset + 2] = image.m_pixels[offset + 2];
+      front.m_pixels[offset + 3] = image.m_pixels[offset + 3];
+    }
   }
 }
 
