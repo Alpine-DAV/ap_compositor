@@ -82,6 +82,7 @@ struct APCOMP_API Image
     std::string ToString() const;
 
     void Save(std::string name);
+    void SaveDepth(std::string name);
 };
 
 } //namespace  apcomp

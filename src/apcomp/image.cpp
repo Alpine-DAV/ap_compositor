@@ -62,6 +62,7 @@ Image::Init(const float *color_buffer,
   m_bounds.m_max_x = width;
   m_bounds.m_max_y = height;
   m_orig_bounds = m_bounds;
+  m_gl_depth = gl_depth;
   const int size = width * height;
   m_pixels.resize(size * 4);
   m_depths.resize(size);
@@ -100,6 +101,7 @@ Image::Init(const unsigned char *color_buffer,
   m_bounds.m_max_x = width;
   m_bounds.m_max_y = height;
   m_orig_bounds = m_bounds;
+  m_gl_depth = gl_depth;
 
   const int size = width * height;
   m_pixels.resize(size * 4);
@@ -173,6 +175,7 @@ Image::SubsetFrom(const Image &image,
   m_bounds = sub_region;
   m_orig_rank = image.m_orig_rank;
   m_composite_order = image.m_composite_order;
+  m_gl_depth = image.m_gl_depth;
 
   assert(sub_region.m_min_x >= image.m_bounds.m_min_x);
   assert(sub_region.m_min_y >= image.m_bounds.m_min_y);
@@ -213,6 +216,7 @@ void
 Image::SubsetTo(Image &image) const
 {
   image.m_composite_order = m_composite_order;
+  image.m_gl_depth = m_gl_depth;
   assert(m_bounds.m_min_x >= image.m_bounds.m_min_x);
   assert(m_bounds.m_min_y >= image.m_bounds.m_min_y);
   assert(m_bounds.m_max_x <= image.m_bounds.m_max_x);
@@ -253,6 +257,7 @@ Image::Swap(Image &other)
 
   m_orig_bounds = other.m_orig_bounds;
   m_bounds      = other.m_bounds;
+  m_gl_depth = other.m_gl_depth;
 
   other.m_orig_bounds = orig;
   other.m_bounds      = bounds;
@@ -319,6 +324,52 @@ void Image::Save(std::string name)
 
   PNGEncoder encoder;
   encoder.Encode(&m_pixels[0], width, height);
+  encoder.Save(name +  ".png");
+}
+
+void Image::SaveDepth(std::string name)
+{
+  int width = m_bounds.m_max_x - m_bounds.m_min_x + 1;
+  int height = m_bounds.m_max_y - m_bounds.m_min_y + 1;
+
+  if(width * height <= 0)
+  {
+    throw Error("Image: cannot save empty image");
+  }
+
+  float inf = std::numeric_limits<float>::infinity();
+  float min_v = inf;
+  float max_v = -inf;
+  for(int i = 0; i < width * height;++i)
+  {
+    float d = m_depths[i];
+    if(d != inf)
+    {
+      min_v = std::min(min_v, d);
+      max_v = std::max(max_v, d);
+    }
+  }
+
+  const float len = max_v - min_v;
+  std::vector<float> ndepths(width*height*4);
+
+  for(int i = 0; i < width * height;++i)
+  {
+    const float depth = m_depths[i];
+    float value = 0.f;
+    const int offset = i * 4;
+    if(depth != inf)
+    {
+      value = (depth - min_v) / len;
+    }
+    ndepths[offset + 0] = value;
+    ndepths[offset + 1] = value;
+    ndepths[offset + 2] = value;
+    ndepths[offset + 3] = 1.f;
+  }
+
+  PNGEncoder encoder;
+  encoder.Encode(&ndepths[0], width, height);
   encoder.Save(name +  ".png");
 }
 

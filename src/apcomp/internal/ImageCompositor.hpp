@@ -54,7 +54,7 @@ public:
     front.m_depths[i] = depth;
   }
 }
-// Only composite values the GL depths range (0,1)
+
 void ZBufferComposite(apcomp::Image &front, const apcomp::Image &image)
 {
   assert(front.m_depths.size() == front.m_pixels.size() / 4);
@@ -67,6 +67,7 @@ void ZBufferComposite(apcomp::Image &front, const apcomp::Image &image)
   bool gl_depth = front.m_gl_depth;
   if(gl_depth)
   {
+    // Only composite values the GL depths range (0,1)
 #ifdef apcomp_USE_OPENMP
     #pragma omp parallel for
 #endif

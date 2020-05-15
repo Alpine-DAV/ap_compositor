@@ -192,7 +192,7 @@ Compositor::Composite()
   {
     CompositeVisOrder();
   }
-  // Make this a param to avoid the copy?
+  // TODO Make this a param/ref to avoid the copy?
   return m_images[0];
 }
 
