@@ -5,7 +5,7 @@
 #include <algorithm>
 
 #include <apcomp/apcomp_exports.h>
-#include <assert.h>
+#include <apcomp/error.hpp>
 
 namespace apcomp
 {
@@ -24,10 +24,17 @@ public:
  void Blend(apcomp::Image &front, apcomp::Image &back)
  {
 
-   assert(front.m_bounds.m_min_x == back.m_bounds.m_min_x);
-   assert(front.m_bounds.m_min_y == back.m_bounds.m_min_y);
-   assert(front.m_bounds.m_max_x == back.m_bounds.m_max_x);
-   assert(front.m_bounds.m_max_y == back.m_bounds.m_max_y);
+   bool valid = true;
+   valid &= front.m_bounds.m_min_x == back.m_bounds.m_min_x;
+   valid &= front.m_bounds.m_min_y == back.m_bounds.m_min_y;
+   valid &= front.m_bounds.m_max_x == back.m_bounds.m_max_x;
+   valid &= front.m_bounds.m_max_y == back.m_bounds.m_max_y;
+
+   if(!valid)
+   {
+     throw Error("image bounds do not match");
+   }
+
    const int size = static_cast<int>(front.m_pixels.size() / 4);
 
 #ifdef APCOMP_USE_OPENMP
@@ -57,11 +64,16 @@ public:
 
 void ZBufferComposite(apcomp::Image &front, const apcomp::Image &image)
 {
-  assert(front.m_depths.size() == front.m_pixels.size() / 4);
-  assert(front.m_bounds.m_min_x == image.m_bounds.m_min_x);
-  assert(front.m_bounds.m_min_y == image.m_bounds.m_min_y);
-  assert(front.m_bounds.m_max_x == image.m_bounds.m_max_x);
-  assert(front.m_bounds.m_max_y == image.m_bounds.m_max_y);
+  bool valid = true;
+  valid &= front.m_depths.size() == front.m_pixels.size() / 4;
+  valid &= front.m_bounds.m_min_x == image.m_bounds.m_min_x;
+  valid &= front.m_bounds.m_min_y == image.m_bounds.m_min_y;
+  valid &= front.m_bounds.m_max_x == image.m_bounds.m_max_x;
+  valid &= front.m_bounds.m_max_y == image.m_bounds.m_max_y;
+  if(!valid)
+  {
+    throw Error("image bounds do not match");
+  }
 
   const int size = static_cast<int>(front.m_depths.size());
   bool gl_depth = front.m_gl_depth;
@@ -190,14 +202,6 @@ void ZBufferBlend(std::vector<apcomp::Image> &images)
     const int end = image_pixels * i - 1;
     std::sort(pixels.begin() + begin, pixels.begin() + end);
   }
-
-  // check to see if that worked
-  int pixel_id_0 = pixels[0].m_pixel_id;
-  for(int i = 1; i < num_images; ++i)
-  {
-    assert(pixel_id_0 == pixels[i].m_pixel_id);
-  }
-
 
 #ifdef APCOMP_USE_OPENMP
     #pragma omp parallel for
