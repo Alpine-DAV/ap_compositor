@@ -177,10 +177,6 @@ void
 RadixKCompositor::CompositeSurface(apcompdiy::mpi::communicator &diy_comm,
                                    Image &image)
 {
-  std::cout<<"["<<diy_comm.rank()<<"] "<<image.m_gl_depth<<"\n";
-  std::stringstream ss;
-  ss<<"apcomp_depth_"<<diy_comm.rank();
-  image.SaveDepth(ss.str());
   CompositeImpl(diy_comm, image);
 }
 
