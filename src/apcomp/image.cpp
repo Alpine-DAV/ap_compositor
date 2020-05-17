@@ -3,6 +3,7 @@
 #include "image.hpp"
 #include <apcomp/error.hpp>
 #include <apcomp/utils/png_encoder.hpp>
+#include <limits>
 #include <assert.h>
 
 namespace apcomp
