@@ -1,7 +1,7 @@
 #include "apcomp.hpp"
 #include "error.hpp"
 #include <sstream>
-
+#include <apcomp/utils/data_logger.hpp>
 #ifdef APCOMP_PARALLEL
 #include <mpi.h>
 #endif
@@ -36,6 +36,7 @@ void
 mpi_comm(int mpi_comm_id)
 {
   g_mpi_comm_id = mpi_comm_id;
+  DataLogger::get_instance()->set_rank(mpi_rank());
 }
 
 //---------------------------------------------------------------------------//

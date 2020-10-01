@@ -41,6 +41,7 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 #include "partial_compositor.hpp"
 #include <apcomp/apcomp.hpp>
+#include <apcomp/utils/data_logger.hpp>
 #include <algorithm>
 #include <assert.h>
 #include <limits>
@@ -62,6 +63,9 @@ void BlendPartials(const int &total_segments,
                    std::vector<PartialType<FloatType>> &output_partials,
                    const int output_offset)
 {
+  APCOMP_LOG_OPEN("blend_partials");
+  APCOMP_LOG_ENTRY("total_segments",total_segments);
+  APCOMP_LOG_ENTRY("total_partial_comps",total_partial_comps);
   //
   // Perform the compositing and output the result in the output
   //
@@ -92,7 +96,7 @@ void BlendPartials(const int &total_segments,
 
   //placeholder
   //PartialType<FloatType>::composite_background(output_partials, background_values);
-
+  APCOMP_LOG_CLOSE();
 }
 template<typename T>
 void
@@ -248,11 +252,13 @@ PartialCompositor<PartialType>::merge(const std::vector<std::vector<PartialType>
                                int &global_max_pixel)
 {
 
+  APCOMP_LOG_OPEN("merge");
   int total_partial_comps = 0;
   const int num_partial_images = static_cast<int>(in_partials.size());
   int *offsets = new int[num_partial_images];
   int *pixel_mins =  new int[num_partial_images];
   int *pixel_maxs =  new int[num_partial_images];
+  APCOMP_LOG_ENTRY("partial_images", num_partial_images);
 
   for(int i = 0; i < num_partial_images; ++i)
   {
@@ -324,6 +330,9 @@ PartialCompositor<PartialType>::merge(const std::vector<std::vector<PartialType>
   delete[] pixel_mins;
   delete[] pixel_maxs;
 
+  APCOMP_LOG_ENTRY("min_pixel", global_min_pixel);
+  APCOMP_LOG_ENTRY("max_pixel", global_max_pixel);
+  APCOMP_LOG_CLOSE();
 }
 
 //--------------------------------------------------------------------------------------------
@@ -332,6 +341,7 @@ void
 PartialCompositor<PartialType>::composite_partials(std::vector<PartialType> &partials,
                                             std::vector<PartialType> &output_partials)
 {
+  APCOMP_LOG_OPEN("composite_partials");
   const int total_partial_comps = partials.size();
   if(total_partial_comps == 0)
   {
@@ -414,6 +424,8 @@ PartialCompositor<PartialType>::composite_partials(std::vector<PartialType> &par
     total_segments += work_flags[i];
   }
 
+  APCOMP_LOG_ENTRY("total_segments", total_segments);
+
   int total_unique_pixels = 0;
 #ifdef APCOMP_USE_OPENMP
   #pragma omp parallel for shared(unique_flags) reduction(+:total_unique_pixels)
@@ -422,6 +434,8 @@ PartialCompositor<PartialType>::composite_partials(std::vector<PartialType> &par
   {
     total_unique_pixels += unique_flags[i];
   }
+
+  APCOMP_LOG_ENTRY("total_unique_pixels", total_unique_pixels);
 
   if(total_segments ==  0)
   {
@@ -486,6 +500,7 @@ PartialCompositor<PartialType>::composite_partials(std::vector<PartialType> &par
                         output_partials,
                         total_unique_pixels);
 
+  APCOMP_LOG_CLOSE();
 }
 
 //--------------------------------------------------------------------------------------------
@@ -495,11 +510,21 @@ void
 PartialCompositor<PartialType>::composite(std::vector<std::vector<PartialType>> &partial_images,
                                    std::vector<PartialType> &output_partials)
 {
-  int global_partial_images = partial_images.size();
 #ifdef APCOMP_PARALLEL
   MPI_Comm comm_handle = MPI_Comm_f2c(mpi_comm());
+#ifdef APCOMP_ENABLE_LOGGING
+  // If we are timing, use barrier to synch
+  MPI_Barrier(comm_handle);
+#endif
+
+#endif
+  APCOMP_LOG_OPEN("composite");
+  Timer timer; 
+  int global_partial_images = partial_images.size();
+#ifdef APCOMP_PARALLEL
   int local_partials = global_partial_images;
   MPI_Allreduce(&local_partials, &global_partial_images, 1, MPI_INT, MPI_SUM, comm_handle);
+  APCOMP_LOG_ENTRY("all_reduce", timer.elapsed());
 #endif
 
 #ifdef APCOMP_PARALLEL
@@ -516,11 +541,13 @@ PartialCompositor<PartialType>::composite(std::vector<std::vector<PartialType>> 
   //
   // Exchange partials with other ranks
   //
+  timer.reset();
   redistribute(partials,
                comm_handle,
                global_min_pixel,
                global_max_pixel);
   MPI_Barrier(comm_handle);
+  APCOMP_LOG_ENTRY("redistribute", timer.elapsed());
 #endif
 
   const int  total_partial_comps = partials.size();
@@ -533,12 +560,15 @@ PartialCompositor<PartialType>::composite(std::vector<std::vector<PartialType>> 
   composite_partials(partials, output_partials);
 
 #ifdef APCOMP_PARALLEL
+  timer.reset();
   //
   // Collect all of the distibuted pixels
   //
   collect(output_partials, comm_handle);
   MPI_Barrier(comm_handle);
+  APCOMP_LOG_ENTRY("collect", timer.elapsed());
 #endif
+  APCOMP_LOG_CLOSE();
 }
 
 template<typename PartialType>
