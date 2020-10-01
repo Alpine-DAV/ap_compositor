@@ -19,7 +19,10 @@ set(apcomp_headers
   utils/png_compare.hpp
   utils/png_decoder.hpp
   utils/png_encoder.hpp
+  utils/timer.hpp
+  utils/data_logger.hpp
   utils/lodepng.h
+  utils/yaml_writer.hpp
   )
 
 set(apcomp_sources
@@ -32,6 +35,7 @@ set(apcomp_sources
   utils/png_compare.cpp
   utils/png_decoder.cpp
   utils/png_encoder.cpp
+  utils/data_logger.cpp
   utils/lodepng.cpp
   )
 
@@ -52,6 +56,10 @@ if (ENABLE_SERIAL)
     target_compile_definitions(apcomp PRIVATE APCOMP_COMPILING_FLAG)
     if(ENABLE_OPENMP)
         target_compile_definitions(apcomp PRIVATE APCOMP_USE_OPENMP)
+    endif()
+
+    if(ENABLE_LOGGING)
+      target_compile_definitions(apcomp PRIVATE APCOMP_ENABLE_LOGGING)
     endif()
 
     target_include_directories(apcomp PUBLIC $<INSTALL_INTERFACE:include>)
@@ -115,6 +123,10 @@ if (MPI_FOUND)
 
     if(ENABLE_OPENMP)
       target_compile_definitions(apcomp_mpi PRIVATE APCOMP_USE_OPENMP)
+    endif()
+
+    if(ENABLE_LOGGING)
+      target_compile_definitions(apcomp_mpi PRIVATE APCOMP_ENABLE_LOGGING)
     endif()
 
 
