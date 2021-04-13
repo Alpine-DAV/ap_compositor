@@ -144,7 +144,14 @@ RadixKCompositor::CompositeImpl(apcompdiy::mpi::communicator &diy_comm, ImageTyp
     const int num_blocks = diy_comm.size();
     const int magic_k = 8;
 
-    apcompdiy::Master master(diy_comm, num_threads);
+    //apcompdiy::Master master(diy_comm, num_threads);
+    apcompdiy::Master master(
+        diy_comm, num_threads,
+        -1, 0,
+        [](void * b){
+        ImageBlock<ImageType> *block = reinterpret_cast<ImageBlock<ImageType>*>(b);
+        delete block;
+        });
 
     // create an assigner with one block per rank
     apcompdiy::ContiguousAssigner assigner(num_blocks, num_blocks);
