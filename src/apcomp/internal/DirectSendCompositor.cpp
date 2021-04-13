@@ -132,7 +132,15 @@ DirectSendCompositor::CompositeVolume(apcompdiy::mpi::communicator &diy_comm,
   // so we isolate them within separate blocks
   //
   {
-    apcompdiy::Master master(diy_comm, num_threads);
+    apcompdiy::Master master(
+        diy_comm,
+        num_threads,
+        -1, 0,
+        [](void * b){
+           MultiImageBlock *block = reinterpret_cast<MultiImageBlock*>(b);
+           delete block;
+        });
+
     // create an assigner with one block per rank
     apcompdiy::ContiguousAssigner assigner(num_blocks, num_blocks);
 
@@ -149,7 +157,14 @@ DirectSendCompositor::CompositeVolume(apcompdiy::mpi::communicator &diy_comm,
   }
 
   {
-    apcompdiy::Master master(diy_comm, num_threads);
+    apcompdiy::Master master(
+        diy_comm,
+        num_threads,
+        -1, 0,
+        [](void * b){
+           ImageBlock<Image> *block = reinterpret_cast<ImageBlock<Image>*>(b);
+           delete block;
+        });
     apcompdiy::ContiguousAssigner assigner(num_blocks, num_blocks);
 
     const int dims = 2;
