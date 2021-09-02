@@ -60,9 +60,12 @@ set(MPI_TESTS t_apcomp_mpi_smoke
               t_apcomp_c_order_mpi
               t_apcomp_volume_partials_mpi)
 
+# note: this should come in automatically
+#       but not going to temp fate 
 if(ENABLE_OPENMP)
-  set(apcomp_deps openmp)
+  set(apcomp_deps ${apcomp_blt_openmp_deps})
 endif()
+
 ################################
 # Add main tests
 ################################

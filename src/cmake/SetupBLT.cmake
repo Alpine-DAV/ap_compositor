@@ -56,6 +56,27 @@ if(ENABLE_MPI)
     endif()
 endif()
 
+
+if(ENABLE_OPENMP)
+    # adjust OpenMP from BLT
+    if( ${CMAKE_VERSION} VERSION_LESS "3.9.0" )
+        # older cmake, we use BLT's openmp support, it uses 
+        # the name openmp
+        set(apcomp_blt_openmp_deps openmp CACHE STRING "")
+    else()
+        if(TARGET OpenMP::OpenMP_CXX)
+            message(STATUS "Using OpenMP CMake imported target: OpenMP::OpenMP_CXX")
+            # newer cmake we openmp targets directly
+            set(apcomp_blt_openmp_deps OpenMP::OpenMP_CXX CACHE STRING "")
+        else()
+            message(FATAL_ERROR "Cannot use CMake imported targets for OpenMP."
+                                "(CMake > 3.9, ENABLE_OPENMP == ON, but "
+                                "OpenMP::OpenMP_CXX CMake target is missing.)")
+        endif()
+    endif()
+endif()
+
+
 ################################################################
 # apply folders to a few ungrouped blt targets
 ################################################################
