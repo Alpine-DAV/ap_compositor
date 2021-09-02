@@ -39,7 +39,7 @@ if (ENABLE_SERIAL)
     set(apcomp_deps )
 
     if(ENABLE_OPENMP)
-        list(APPEND apcomp_deps openmp)
+        list(APPEND apcomp_deps ${apcomp_blt_openmp_deps})
     endif()
 
     blt_add_library(
@@ -92,10 +92,10 @@ list(APPEND apcomp_mpi_sources ${apcomp_sources})
 
 if (MPI_FOUND)
 
-    set(apcomp_mpi_deps mpi)
+    set(apcomp_mpi_deps ${apcomp_blt_mpi_deps})
 
     if(ENABLE_OPENMP)
-         list(APPEND apcomp_mpi_deps openmp)
+         list(APPEND apcomp_mpi_deps ${apcomp_blt_openmp_deps})
     endif()
 
 
