@@ -94,5 +94,6 @@ configure_package_config_file(
 install(FILES
     ${CMAKE_CURRENT_BINARY_DIR}/APCompConfig.cmake
     ${CMAKE_CURRENT_BINARY_DIR}/APCompConfigVersion.cmake
+    apcomp_setup_deps.cmake
     DESTINATION ${APComp_INSTALL_CMAKE_MODULE_DIR})
 
