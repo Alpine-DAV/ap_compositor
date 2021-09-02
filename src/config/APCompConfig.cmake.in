@@ -57,11 +57,17 @@ if(NOT APCOMP_FOUND)
     set(APCOMP_VERSION "@PROJECT_VERSION@")
     set(APCOMP_INSTALL_PREFIX "@ASCENT_INSTALL_PREFIX@")
 
+    set(APCOMP_OPENMP_ENABLED "@ENABLE_OPENMP@")
+    set(APCOMP_MPI_ENABLED    "@ENABLE_MPI@")
+
     # pull in vars with details about configured paths
     get_filename_component(APCOMP_CMAKE_CONFIG_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
 
-    include(${APCOMP_CMAKE_CONFIG_DIR}/APCompTargets.cmake)
+    # setup dependent pkgs
+    include(${APCOMP_CMAKE_CONFIG_DIR}/apcomp_setup_deps.cmake)
 
+    include(${APCOMP_CMAKE_CONFIG_DIR}/APCompTargets.cmake)
+ 
     set(APCOMP_FOUND TRUE)
 
 endif()
