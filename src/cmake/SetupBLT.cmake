@@ -47,8 +47,6 @@ if(ENABLE_MPI)
         # if we are using BLT's enable mpi, then we must
         # make sure the MPI targets exist
         if(ENABLE_FIND_MPI)
-            # our import logic needs this info if hdf5 depends
-            # on mpi
             if(TARGET MPI::MPI_CXX)
                 set(APCOMP_USE_CMAKE_MPI_TARGETS TRUE CACHE BOOL "")
                 message(STATUS "Using MPI CMake imported target: MPI::MPI_CXX")
