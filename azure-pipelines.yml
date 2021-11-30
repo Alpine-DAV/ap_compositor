@@ -4,6 +4,12 @@
 # Ref:
 # https://aka.ms/yaml
 
+#####
+# TO USE A NEW CONTAINER, UPDATE TAG NAME HERE AS PART OF YOUR PR!
+#####
+variables:
+  main_tag : alpinedav/ascent-ci:ubuntu-18-devel
+
 # only build merge target pr to develop
 trigger: none
 pr:
@@ -19,9 +25,10 @@ stages:
   ###############################################################################
   # Ubuntu build and test, using spack to build tpls
   ###############################################################################
-  - job: Ubuntu_Latest
+  - job: Main_Ubuntu_18
     pool:
       vmImage: 'ubuntu-latest'
+    container: ${{ variables.main_tag }}
     timeoutInMinutes: 0
     variables:
       COMPILER_CC: gcc
