@@ -4,6 +4,12 @@
 # Ref:
 # https://aka.ms/yaml
 
+#####
+# TO USE A NEW CONTAINER, UPDATE TAG NAME HERE AS PART OF YOUR PR!
+#####
+variables:
+  main_tag : alpinedav/ascent-ci:ubuntu-18-devel
+
 # only build merge target pr to develop
 trigger: none
 pr:
@@ -19,14 +25,15 @@ stages:
   ###############################################################################
   # Ubuntu build and test, using spack to build tpls
   ###############################################################################
-  - job: Ubuntu_16
+  - job: Main_Ubuntu_18
     pool:
-      vmImage: 'ubuntu-16.04'
+      vmImage: 'ubuntu-latest'
+    container: ${{ variables.main_tag }}
     timeoutInMinutes: 0
     variables:
-      COMPILER_CC: gcc-5
-      COMPILER_CXX: g++-5
-      COMPILER_FC: gfortran-5
+      COMPILER_CC: gcc
+      COMPILER_CXX: g++
+      COMPILER_FC: gfortran
     strategy:
       matrix:
         shared_debug:
@@ -65,8 +72,8 @@ stages:
            sudo apt-get update
            # list pkgs we need
            export APT_PKGS=binutils
-           export APT_PKGS="$APT_PKGS gcc-5"
-           export APT_PKGS="$APT_PKGS g++-5"
+           export APT_PKGS="$APT_PKGS gcc"
+           export APT_PKGS="$APT_PKGS g++"
            export APT_PKGS="$APT_PKGS openmpi-bin"
            export APT_PKGS="$APT_PKGS libopenmpi-dev"
            export APT_PKGS="$APT_PKGS libncurses-dev"
