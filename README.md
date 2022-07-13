@@ -1,3 +1,10 @@
+# AP Compositor is now developed as part of Ascent
+
+AP Compositor is now developed as part of Ascent (https://github.com/Alpine-DAV/ascent).
+
+It was moved as part of a great amalgamation to simplify ongoing development and support of Ascent.
+
+
 # AP Compositor
 
 This is the AP Compositor, a sort-last image compositing library.  This library is designed for use-cases beyond traditional zbuffer image compositing. The intention is to fill gaps in functionality that other image compositing libraries do not support. The AP Compositor is a hybrid-parallel library: with support for both OpenMP (thread-level parallelism) and MPI
@@ -15,14 +22,13 @@ AP Compositor use cases:
 
 # History
 
-The compositing functionality was originally included in the [Ascent](https://github.com/Alpine-DAV/ascent) in-situ visualization library. As time progressed, we separated some functionality into [VTK-h](https://github.com/Alpine-DAV/vtk-h). However, the compositing functionality is generally useful, which is why it now exists as a standalone library. The AP Compositor has been tested at scale on the full Sierra supercomputer (16K nodes) at LLNL as well as many other clusters.
+The compositing functionality was originally included in the [Ascent](https://github.com/Alpine-DAV/ascent) in-situ visualization library. As time progressed, we separated some functionality into [VTK-h](https://github.com/Alpine-DAV/vtk-h). The compositing functionality is generally useful, so we released it as a standalone library. After a time out on its own, the AP Compositor decided it was time to return to home and amalgamated into Ascent.
+
+The AP Compositor has been tested at scale on the full Sierra supercomputer (16K nodes) at LLNL as well as many other clusters.
 
 # Funding
 Work on this library has beed funded by US Department of Energy through the Exascale Computing Project ([ECP](https://www.exascaleproject.org/)) and the [ASC](https://asc.llnl.gov/) program.
 
 # License
 
-AP Compositor  is released under a BSD-style license - for detailed
-license info, refer to the following files in the  source tree:
-- [LICENSE](/LICENSE)
-
+AP Compositor is released as part of Ascent, under its BSD-style license.
